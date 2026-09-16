@@ -7,7 +7,6 @@
 <meta name="description" content="Purysho — independent software, local-first tools, and deliberately released experiments." />
 <title>Purysho — private experiments, public releases</title>
 <link rel="stylesheet" href="assets/site.css" />
-
 </head>
 <body>
 <div class="nav-shell">
@@ -51,9 +50,10 @@
     <div class="wrap">
       <div class="section-head" data-reveal>
         <h2>Public releases</h2>
-        <p>Three deliberately small tools with different jobs: understand a repository, find what is on your machine, and inspect how a database works beneath the API.</p>
+        <p>Six focused tools in two tracks. <strong style="color:#d7dbe0;font-weight:600">Understand</strong> helps reveal what is already there. <strong style="color:#d7dbe0;font-weight:600">Operate</strong> helps you interact with, automate, and observe the systems you run.</p>
       </div>
 
+      <p style="margin:0 0 16px;color:#737b86;font-size:11px;letter-spacing:.28em;text-transform:uppercase" data-reveal>Understand</p>
       <div class="release-grid">
         <a class="release-card blackbox" href="https://github.com/purysho/BLACKBOX" target="_blank" rel="noopener" data-reveal>
           <div class="card-top"><img class="project-icon" src="assets/blackbox.svg" alt="BLACKBOX icon" /><span class="kind">Repository intelligence</span></div>
@@ -62,7 +62,6 @@
           <div class="facts"><span>Windows</span><span>Python</span><span>Local-first</span></div>
           <span class="card-link">Open repository <svg class="arrow" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </a>
-
         <a class="release-card needle" href="https://github.com/purysho/Needle" target="_blank" rel="noopener" data-reveal>
           <div class="card-top"><img class="project-icon" src="assets/needle.svg" alt="Needle icon" /><span class="kind">Local search</span></div>
           <h3>Needle</h3>
@@ -70,12 +69,36 @@
           <div class="facts"><span>Windows</span><span>Python</span><span>No cloud index</span></div>
           <span class="card-link">Open repository <svg class="arrow" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </a>
-
         <a class="release-card palisade" href="https://github.com/purysho/PalisadeDB" target="_blank" rel="noopener" data-reveal>
           <div class="card-top"><img class="project-icon" src="assets/palisade.svg" alt="PalisadeDB icon" /><span class="kind">Database engine</span></div>
           <h3>PalisadeDB</h3>
           <p class="desc">A compact custom database engine with its own pager, B+ tree, SQL layer, transactions, and recovery machinery.</p>
           <div class="facts"><span>Custom .pdb</span><span>B+ tree</span><span>No SQLite</span></div>
+          <span class="card-link">Open repository <svg class="arrow" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+      </div>
+
+      <p style="margin:48px 0 16px;color:#737b86;font-size:11px;letter-spacing:.28em;text-transform:uppercase" data-reveal>Operate</p>
+      <div class="release-grid">
+        <a class="release-card" style="--accent:#69b9ff;--edge:rgba(105,185,255,.34);--wash:rgba(69,169,255,.13);--piece:rgba(255,115,87,.08)" href="https://github.com/purysho/Relay" target="_blank" rel="noopener" data-reveal>
+          <div class="card-top"><img class="project-icon" src="assets/relay.svg" alt="Relay icon" /><span class="kind">HTTP tooling</span></div>
+          <h3>Relay</h3>
+          <p class="desc">A local HTTP client and inspector with saved requests, history, cURL export, and a lightweight localhost mock server.</p>
+          <div class="facts"><span>HTTP</span><span>Mock server</span><span>Local history</span></div>
+          <span class="card-link">Open repository <svg class="arrow" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+        <a class="release-card" style="--accent:#f0a33a;--edge:rgba(240,163,58,.34);--wash:rgba(240,163,58,.13);--piece:rgba(243,207,120,.08)" href="https://github.com/purysho/Forge" target="_blank" rel="noopener" data-reveal>
+          <div class="card-top"><img class="project-icon" src="assets/forge.svg" alt="Forge icon" /><span class="kind">Local automation</span></div>
+          <h3>Forge</h3>
+          <p class="desc">A local workflow runner that chains commands, files, HTTP calls, waits, and app launches into reusable automations.</p>
+          <div class="facts"><span>Workflows</span><span>Portable JSON</span><span>No hosted runner</span></div>
+          <span class="card-link">Open repository <svg class="arrow" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+        <a class="release-card" style="--accent:#4ed8d2;--edge:rgba(78,216,210,.34);--wash:rgba(78,216,210,.12);--piece:rgba(92,168,255,.08)" href="https://github.com/purysho/Pulse" target="_blank" rel="noopener" data-reveal>
+          <div class="card-top"><img class="project-icon" src="assets/pulse.svg" alt="Pulse icon" /><span class="kind">System observability</span></div>
+          <h3>Pulse</h3>
+          <p class="desc">A local process and network relationship monitor that shows parents, children, memory, CPU time, ports, and TCP links.</p>
+          <div class="facts"><span>Processes</span><span>TCP</span><span>Relationships</span></div>
           <span class="card-link">Open repository <svg class="arrow" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </a>
       </div>
@@ -100,15 +123,10 @@
           <h2>Instruments for <em>wandering.</em></h2>
           <p>The original Purysho portfolio now has its own home: three quiet web experiments connected by a throughline from discovery, to unanswered questions, to memory.</p>
           <div class="trilogy" aria-label="Wandering trilogy projects"><span>GitHub Treasure Hunt</span><span>Open Question Atlas</span><span>Lodestar</span></div>
-          <div class="wander-actions">
-            <a class="btn primary" href="./wandering/">Enter the trilogy <svg class="arrow" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          </div>
+          <div class="wander-actions"><a class="btn primary" href="./wandering/">Enter the trilogy <svg class="arrow" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
         </div>
         <div class="constellation" aria-hidden="true">
-          <svg viewBox="0 0 320 220">
-            <line x1="38" y1="151" x2="116" y2="76"/><line x1="116" y1="76" x2="201" y2="112"/><line x1="201" y1="112" x2="276" y2="48"/><line x1="201" y1="112" x2="251" y2="183"/>
-            <circle cx="38" cy="151" r="4"/><circle class="blue" cx="116" cy="76" r="5"/><circle cx="201" cy="112" r="4"/><circle class="blue" cx="276" cy="48" r="3.5"/><circle cx="251" cy="183" r="4"/>
-          </svg>
+          <svg viewBox="0 0 320 220"><line x1="38" y1="151" x2="116" y2="76"/><line x1="116" y1="76" x2="201" y2="112"/><line x1="201" y1="112" x2="276" y2="48"/><line x1="201" y1="112" x2="251" y2="183"/><circle cx="38" cy="151" r="4"/><circle class="blue" cx="116" cy="76" r="5"/><circle cx="201" cy="112" r="4"/><circle class="blue" cx="276" cy="48" r="3.5"/><circle cx="251" cy="183" r="4"/></svg>
         </div>
       </div>
     </div>
@@ -117,19 +135,10 @@
 
 <footer>
   <div class="wrap footer-inner">
-    <div>
-      <h2 class="footer-title">Ideas into <span>useful things.</span></h2>
-      <div class="footer-copy">PURYSHO · INDEPENDENT SOFTWARE · 2026</div>
-    </div>
-    <div class="footer-links">
-      <a href="https://github.com/purysho" target="_blank" rel="noopener">GitHub ↗</a>
-      <a href="https://github.com/purysho?tab=repositories" target="_blank" rel="noopener">All repositories ↗</a>
-      <a href="./wandering/">Wandering trilogy →</a>
-    </div>
+    <div><h2 class="footer-title">Ideas into <span>useful things.</span></h2><div class="footer-copy">PURYSHO · INDEPENDENT SOFTWARE · 2026</div></div>
+    <div class="footer-links"><a href="https://github.com/purysho" target="_blank" rel="noopener">GitHub ↗</a><a href="https://github.com/purysho?tab=repositories" target="_blank" rel="noopener">All repositories ↗</a><a href="./wandering/">Wandering trilogy →</a></div>
   </div>
 </footer>
-
 <script src="assets/site.js"></script>
-
 </body>
 </html>
