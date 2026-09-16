@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">BLACKBOX</title><desc id="desc">Dark repository scanner cube with cyan scan line.</desc>
+  <rect width="256" height="256" rx="42" fill="#0f141a"/>
+  <path d="M128 34 207 75v106l-79 41-79-41V75z" fill="#111820" stroke="#030607" stroke-width="10" stroke-linejoin="round"/>
+  <path d="M128 34v188M49 75l79 43 79-43" fill="none" stroke="#38414b" stroke-width="9" stroke-linejoin="round"/>
+  <path d="M43 130l85 45 85-45" fill="none" stroke="#25ebe7" stroke-width="8" stroke-linecap="round"/>
+  <path d="M66 87v22M66 87h22M190 87v22M190 87h-22M66 169v-22M66 169h22M190 169v-22M190 169h-22" fill="none" stroke="#2af8f1" stroke-width="8" stroke-linecap="square"/>
+  <path d="M84 113l44 24 44-24M84 146l44 24 44-24" fill="none" stroke="#2f3944" stroke-width="10" stroke-linejoin="round"/>
+</svg>

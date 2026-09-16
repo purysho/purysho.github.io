@@ -3,724 +3,133 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>purysho — instruments for wandering</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --void:#03040b;
-    --ink:#06081a;
-    --ink-2:#0a0d24;
-    --panel:#0d1130;
-    --star:#f6d37c;      /* warm star-gold — primary accent */
-    --beacon:#79b4ff;    /* cool beacon-blue — secondary */
-    --nebula:#8f6dff;    /* violet nebula for ambient blobs */
-    --paper:#eef1fb;
-    --mist:#9aa4cc;
-    --faint:#616a92;
-    --line:rgba(238,241,251,.12);
-    --line-2:rgba(238,241,251,.06);
-    --serif:"Fraunces",Georgia,serif;
-    --sans:"Inter",system-ui,-apple-system,sans-serif;
-    --mono:"Space Mono","SFMono-Regular",ui-monospace,monospace;
-    --ease:cubic-bezier(.22,.61,.36,1);
-  }
+<meta name="theme-color" content="#06080b" />
+<meta name="description" content="Purysho — independent software, local-first tools, and deliberately released experiments." />
+<title>Purysho — private experiments, public releases</title>
+<link rel="stylesheet" href="assets/site.css" />
 
-  *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
-  body{
-    margin:0;background:var(--void);color:var(--paper);
-    font-family:var(--sans);font-size:17px;line-height:1.6;
-    overflow-x:hidden;-webkit-font-smoothing:antialiased;
-  }
-  ::selection{background:var(--star);color:#1a1400}
-  a{color:inherit;text-decoration:none}
-  img{max-width:100%;display:block}
-  h1,h2,h3{margin:0;font-family:var(--serif);font-weight:400;line-height:1.02;letter-spacing:-.02em}
-  em{font-style:italic}
-
-  .wrap{max-width:1220px;margin:0 auto;padding:0 clamp(20px,5vw,64px)}
-  .eyebrow{
-    font-family:var(--mono);font-size:12px;letter-spacing:.28em;text-transform:uppercase;
-    color:var(--star);display:inline-flex;align-items:center;gap:.7em;
-  }
-  .eyebrow::before{content:"";width:26px;height:1px;background:var(--star);opacity:.7}
-  .mono{font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint)}
-
-  /* ---------- fixed decorative layers ---------- */
-  .skybg{position:fixed;inset:0;z-index:-2;background:
-     radial-gradient(1100px 700px at 78% -8%, rgba(121,180,255,.10), transparent 60%),
-     radial-gradient(900px 620px at 8% 108%, rgba(143,109,255,.12), transparent 62%),
-     linear-gradient(180deg,#03040b 0%,#06081a 42%,#04050f 100%);}
-  .grain{position:fixed;inset:0;z-index:60;opacity:.05;mix-blend-mode:overlay;pointer-events:none}
-  #stars{position:fixed;inset:0;z-index:-1;pointer-events:none}
-
-  .blob{position:fixed;width:44vw;aspect-ratio:1;border-radius:50%;z-index:-1;pointer-events:none;
-    background:radial-gradient(circle,var(--c),transparent 66%);filter:blur(80px);opacity:.42}
-
-  /* ---------- nav ---------- */
-  nav{position:fixed;top:0;left:0;right:0;z-index:50;
-    display:flex;align-items:center;justify-content:space-between;
-    padding:18px clamp(20px,5vw,64px);
-    background:linear-gradient(180deg,rgba(3,4,11,.72),transparent);
-    backdrop-filter:blur(2px)}
-  .brand{font-family:var(--serif);font-size:20px;letter-spacing:-.01em;display:flex;align-items:center;gap:.5em}
-  .brand b{font-weight:600}
-  .brand .mk{color:var(--star)}
-  .navlinks{display:flex;gap:28px;align-items:center}
-  .navlinks a{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--mist);
-    position:relative;padding:4px 0;transition:color .3s var(--ease)}
-  .navlinks a::after{content:"";position:absolute;left:0;bottom:-2px;height:1px;width:0;background:var(--star);transition:width .35s var(--ease)}
-  .navlinks a:hover{color:var(--paper)}
-  .navlinks a:hover::after{width:100%}
-  .navlinks .ghlink{color:var(--star)}
-  @media(max-width:760px){.navlinks a:not(.ghlink){display:none}}
-
-  /* ---------- hero ---------- */
-  .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;
-    padding-top:120px;padding-bottom:64px}
-  .hero h1{font-size:clamp(3rem,10.5vw,9rem);letter-spacing:-.035em;line-height:.92}
-  .hero h1 .l2{display:block;padding-left:.06em}
-  .hero h1 em{color:var(--star);font-weight:500}
-  .hero .lede{max-width:640px;margin-top:34px;font-size:clamp(1.05rem,1.9vw,1.35rem);color:var(--mist)}
-  .hero .lede b{color:var(--paper);font-weight:500}
-  .cta-row{display:flex;flex-wrap:wrap;gap:16px;margin-top:44px}
-  .btn{display:inline-flex;align-items:center;gap:.6em;font-family:var(--mono);font-size:13px;letter-spacing:.12em;
-    text-transform:uppercase;padding:16px 26px;border-radius:100px;border:1px solid var(--line);
-    color:var(--paper);transition:transform .35s var(--ease),border-color .35s var(--ease),background .35s var(--ease),color .35s var(--ease)}
-  .btn:active{transform:scale(.96)}
-  .btn.primary{background:var(--star);color:#1a1400;border-color:var(--star);font-weight:700}
-  .btn.primary:hover{background:#ffe39a;border-color:#ffe39a}
-  .btn.ghost:hover{border-color:var(--paper);background:rgba(238,241,251,.05)}
-  .scrollcue{position:absolute;bottom:30px;left:clamp(20px,5vw,64px);display:flex;align-items:center;gap:14px;color:var(--faint)}
-  .scrollcue .bar{width:1px;height:46px;background:linear-gradient(var(--star),transparent);position:relative;overflow:hidden}
-  .scrollcue .bar::after{content:"";position:absolute;top:0;left:0;width:100%;height:40%;background:var(--star);animation:cue 2.2s var(--ease) infinite}
-  @keyframes cue{0%{transform:translateY(-100%)}60%,100%{transform:translateY(260%)}}
-
-  /* ---------- section frame ---------- */
-  section{position:relative;padding:clamp(90px,13vw,180px) 0}
-  .sec-head{max-width:760px}
-  .sec-head h2{font-size:clamp(2.1rem,5.4vw,4.2rem);margin-top:22px}
-  .sec-head p{color:var(--mist);margin-top:22px;font-size:1.12rem;max-width:620px}
-
-  /* ---------- manifesto ---------- */
-  .manifesto{text-align:center;padding-top:0}
-  .manifesto .big{font-family:var(--serif);font-size:clamp(1.7rem,4.4vw,3.4rem);line-height:1.16;
-    max-width:16ch;margin:0 auto;letter-spacing:-.02em}
-  .manifesto .big em{color:var(--star)}
-  .marquee{overflow:hidden;white-space:nowrap;margin-top:72px;
-    border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0;
-    -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
-    mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
-  .marquee-track{display:inline-flex;animation:marquee 22s linear infinite}
-  .marquee-track span{font-family:var(--serif);font-size:clamp(1.6rem,3.4vw,2.6rem);font-style:italic;
-    color:var(--paper);padding-right:.35em}
-  .marquee-track .dot{color:var(--star);font-style:normal;padding:0 .5em}
-  @keyframes marquee{to{transform:translateX(-50%)}}
-
-  /* ---------- constellation ---------- */
-  .constellation{}
-  .constel-stage{position:relative;margin-top:56px}
-  .constel-svg{width:100%;height:auto;display:block;overflow:visible}
-  .cx-line{fill:none;stroke:var(--star);stroke-width:1.4;opacity:.85;
-    stroke-dasharray:1;filter:drop-shadow(0 0 6px rgba(246,211,124,.5))}
-  .cx-star circle.core{fill:var(--paper)}
-  .cx-star circle.halo{fill:var(--star);opacity:.16}
-  .cx-star.b circle.core{fill:var(--beacon)}
-  .cx-star.b circle.halo{fill:var(--beacon)}
-  .cx-label{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;fill:var(--mist)}
-  .cx-name{font-family:var(--serif);font-size:26px;fill:var(--paper)}
-  .cx-cap{max-width:560px;margin:44px auto 0;text-align:center;color:var(--mist);font-size:1.12rem}
-  .cx-cap b{color:var(--paper);font-weight:500}
-
-  /* ---------- project ---------- */
-  .project{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,90px);align-items:center;position:relative}
-  .project + .project{margin-top:clamp(90px,13vw,170px)}
-  .project.flip .p-media{order:2}
-  .p-index{position:absolute;top:-.5em;font-family:var(--serif);font-size:clamp(9rem,26vw,20rem);
-    line-height:1;color:transparent;-webkit-text-stroke:1px rgba(238,241,251,.07);z-index:-1;pointer-events:none;user-select:none}
-  .project:not(.flip) .p-index{right:-2%}
-  .project.flip .p-index{left:-2%}
-  .p-body .kicker{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
-  .p-body h3{font-size:clamp(2rem,4.6vw,3.4rem);margin-top:20px}
-  .p-body .role{color:var(--star)}
-  .p-desc{color:var(--mist);margin-top:20px;font-size:1.08rem;max-width:46ch}
-  .features{list-style:none;padding:0;margin:26px 0 0}
-  .features li{display:flex;gap:14px;padding:11px 0;border-top:1px solid var(--line-2);font-size:.98rem;color:var(--paper)}
-  .features li:first-child{border-top:0}
-  .features .fx{color:var(--star);flex:none;font-family:var(--mono);font-size:12px;padding-top:.28em}
-  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
-  .chip{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mist);
-    border:1px solid var(--line);border-radius:100px;padding:6px 13px;transition:border-color .3s,color .3s}
-  .chip:hover{border-color:var(--star);color:var(--paper)}
-  .p-meta{display:flex;flex-wrap:wrap;gap:24px;margin-top:28px;padding-top:22px;border-top:1px solid var(--line)}
-  .p-meta div{min-width:64px}
-  .p-meta .n{font-family:var(--serif);font-size:1.5rem;color:var(--paper)}
-  .p-meta .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-top:2px}
-  .p-links{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
-
-  /* window / media frame */
-  .p-media{perspective:1100px}
-  .window{border-radius:16px;overflow:hidden;border:1px solid var(--line);
-    background:var(--ink-2);box-shadow:0 40px 90px -40px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.02) inset;
-    transform-style:preserve-3d;will-change:transform}
-  .titlebar{display:flex;align-items:center;gap:8px;padding:12px 15px;border-bottom:1px solid var(--line-2);
-    background:linear-gradient(180deg,rgba(255,255,255,.04),transparent)}
-  .titlebar .dot{width:11px;height:11px;border-radius:50%;background:#2a3054}
-  .titlebar .url{margin-left:10px;font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.04em;
-    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .shot{position:relative;aspect-ratio:16/10;background:
-     radial-gradient(120% 120% at 30% 10%,rgba(121,180,255,.14),transparent 55%),
-     radial-gradient(120% 120% at 80% 90%,rgba(143,109,255,.16),transparent 55%),
-     var(--panel)}
-  .shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;transition:opacity .4s}
-  .shot iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
-  .live-btn{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:3;
-    display:inline-flex;align-items:center;gap:.55em;font-family:var(--mono);font-size:11px;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--paper);background:rgba(6,8,26,.72);backdrop-filter:blur(6px);
-    border:1px solid var(--line);border-radius:100px;padding:9px 16px;cursor:pointer;transition:border-color .3s,background .3s}
-  .live-btn:hover{border-color:var(--star);background:rgba(6,8,26,.9)}
-
-  /* ---------- stats ---------- */
-  .stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-  .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
-  .stat{padding:26px clamp(14px,2.4vw,34px);border-left:1px solid var(--line-2)}
-  .stat:first-child{border-left:0}
-  .stat .n{font-family:var(--serif);font-size:clamp(2.8rem,6vw,4.6rem);line-height:1;color:var(--star);letter-spacing:-.02em}
-  .stat .n .u{color:var(--paper);font-size:.5em;margin-left:2px}
-  .stat .k{color:var(--mist);margin-top:12px;font-size:.95rem}
-  @media(max-width:720px){.stat-grid{grid-template-columns:repeat(2,1fr)}.stat:nth-child(3){border-left:0}}
-
-  /* ---------- ethos ---------- */
-  .ethos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:56px}
-  .ecard{border:1px solid var(--line);border-radius:14px;padding:28px;background:linear-gradient(180deg,rgba(255,255,255,.02),transparent);
-    transition:border-color .4s var(--ease),transform .4s var(--ease)}
-  .ecard:hover{border-color:rgba(246,211,124,.4);transform:translateY(-4px)}
-  .ecard .g{font-size:26px}
-  .ecard h4{font-family:var(--serif);font-weight:500;font-size:1.4rem;margin:16px 0 8px}
-  .ecard p{color:var(--mist);font-size:.98rem;margin:0}
-  @media(max-width:860px){.ethos-grid{grid-template-columns:1fr}}
-
-  .maker{margin-top:64px;padding:36px;border:1px solid var(--line);border-radius:16px;
-    display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between;
-    background:radial-gradient(120% 200% at 100% 0,rgba(121,180,255,.08),transparent 60%)}
-  .maker p{margin:0;max-width:60ch;color:var(--mist)}
-  .maker p b{color:var(--paper);font-family:var(--serif);font-weight:500}
-
-  /* ---------- footer ---------- */
-  footer{padding:clamp(90px,14vw,180px) 0 60px;border-top:1px solid var(--line);position:relative}
-  .foot-cta{text-align:center}
-  .foot-cta .eyebrow{justify-content:center}
-  .foot-cta h2{font-size:clamp(3rem,12vw,9rem);margin-top:24px;letter-spacing:-.04em}
-  .foot-cta h2 em{color:var(--star)}
-  .mega{display:inline-block;margin-top:40px}
-  .foot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:96px}
-  .fcol h5{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin:0 0 14px}
-  .fcol a{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-top:1px solid var(--line-2);color:var(--mist);transition:color .3s,padding .3s}
-  .fcol a:hover{color:var(--paper);padding-left:6px}
-  .fcol a .ar{color:var(--star)}
-  .foot-base{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;margin-top:80px;
-    padding-top:26px;border-top:1px solid var(--line);color:var(--faint);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
-  @media(max-width:760px){.foot-grid{grid-template-columns:1fr}}
-
-  @media(max-width:900px){
-    .project{grid-template-columns:1fr;gap:38px}
-    .project.flip .p-media{order:0}
-    .p-index{font-size:8rem}
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    *,*::before,*::after{animation:none !important;transition:none !important}
-  }
-</style>
 </head>
 <body>
-
-<div class="skybg" aria-hidden="true"></div>
-<canvas id="stars" aria-hidden="true"></canvas>
-<div class="blob" style="--c:var(--nebula);top:-8%;left:-10%" aria-hidden="true"></div>
-<div class="blob" style="--c:var(--beacon);top:120%;right:-12%" aria-hidden="true"></div>
-
-<nav>
-  <a class="brand" href="#top"><span class="mk">✦</span> <b>purysho</b></a>
-  <div class="navlinks">
-    <a href="#throughline">Throughline</a>
-    <a href="#projects">Projects</a>
-    <a href="#ethos">Ethos</a>
-    <a class="ghlink" href="https://github.com/purysho" target="_blank" rel="noopener">GitHub ↗</a>
-  </div>
-</nav>
-
-<header class="hero wrap" id="top">
-  <span class="eyebrow">A trilogy of quiet tools</span>
-  <h1>Instruments for<span class="l2"><em>wandering.</em></span></h1>
-  <p class="lede">Three calm, static web apps — <b>no accounts, no backend, no tracking</b>. One finds open source worth exploring, one maps the questions we can't yet answer, and one remembers what stayed with you.</p>
-  <div class="cta-row">
-    <a class="btn primary" href="#throughline" data-magnetic>Follow the throughline</a>
-    <a class="btn ghost" href="https://github.com/purysho" target="_blank" rel="noopener" data-magnetic>See the repos ↗</a>
-  </div>
-  <div class="scrollcue"><span class="bar"></span><span class="mono">scroll · 03 tools</span></div>
-</header>
-
-<!-- MANIFESTO -->
-<section class="manifesto wrap">
-  <p class="big" data-reveal="up">Most software organizes answers.<br>These three <em>map the edges</em> of what we know — and give you a place to keep what you find.</p>
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span>Discover</span><span class="dot">✦</span><span>Wonder</span><span class="dot">✦</span><span>Remember</span><span class="dot">✦&nbsp;</span>
-      <span>Discover</span><span class="dot">✦</span><span>Wonder</span><span class="dot">✦</span><span>Remember</span><span class="dot">✦&nbsp;</span>
-    </div>
-  </div>
-</section>
-
-<!-- THROUGHLINE / CONSTELLATION -->
-<section class="constellation wrap" id="throughline">
-  <div class="sec-head">
-    <span class="eyebrow">The throughline</span>
-    <h2 data-split>One idea, drawn as three stars.</h2>
-    <p>Each tool stands alone. Together they trace a single line — from finding something, to wondering about it, to keeping what mattered.</p>
-  </div>
-
-  <div class="constel-stage">
-    <svg class="constel-svg" viewBox="0 0 1000 540" role="img" aria-label="A constellation connecting Discover, Wonder and Remember">
-      <path class="cx-line" id="cxl1" d="M185,395 L515,150" pathLength="1"/>
-      <path class="cx-line" id="cxl2" d="M515,150 L835,405" pathLength="1"/>
-      <path class="cx-line" id="cxl3" d="M185,395 L835,405" pathLength="1" style="opacity:.32;stroke-width:1"/>
-
-      <g class="cx-star" data-star="1" transform="translate(185,395)">
-        <circle class="halo" r="26"/><circle class="core" r="6"/>
-      </g>
-      <g class="cx-star b" data-star="2" transform="translate(515,150)">
-        <circle class="halo" r="30"/><circle class="core" r="7"/>
-      </g>
-      <g class="cx-star" data-star="3" transform="translate(835,405)">
-        <circle class="halo" r="26"/><circle class="core" r="6"/>
-      </g>
-
-      <g class="cx-txt" data-star="1"><text class="cx-label" x="185" y="452" text-anchor="middle">01 · Discover</text>
-        <text class="cx-name" x="185" y="482" text-anchor="middle">Treasure Hunt</text></g>
-      <g class="cx-txt" data-star="2"><text class="cx-label" x="515" y="108" text-anchor="middle">02 · Wonder</text>
-        <text class="cx-name" x="515" y="80" text-anchor="middle">Questions Atlas</text></g>
-      <g class="cx-txt" data-star="3"><text class="cx-label" x="835" y="462" text-anchor="middle">03 · Remember</text>
-        <text class="cx-name" x="835" y="492" text-anchor="middle">Lodestar</text></g>
-    </svg>
-  </div>
-  <p class="cx-cap" data-reveal="up">Lodestar is <b>the memory layer for two stateless discovery tools</b> — and now the line is drawn: Treasure Hunt and the Atlas each have a <b>Send to sky</b> button that drops a find or a question straight into your Lodestar sky, carried through the URL with no backend between them. Find something worth wandering into. Wonder at something unanswered. Then keep what stayed with you.</p>
-</section>
-
-<!-- PROJECTS -->
-<div id="projects"></div>
-
-<!-- 01 -->
-<section class="wrap">
-  <article class="project">
-    <span class="p-index" aria-hidden="true">01</span>
-    <div class="p-media" data-reveal="scale">
-      <div class="window" data-tilt>
-        <div class="titlebar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
-          <span class="url">purysho.github.io/github-treasure-hunt/</span></div>
-        <div class="shot">
-          <img src="https://github.com/purysho/github-treasure-hunt/raw/main/docs/screenshot.png"
-               alt="GitHub Treasure Hunt discovery interface with topic filters and a repository search field"
-               loading="lazy" width="1280" height="800" onerror="this.style.opacity=0">
-          <button class="live-btn" onclick="loadLive(this,'https://purysho.github.io/github-treasure-hunt/')">▶ Load live preview</button>
-        </div>
-      </div>
-    </div>
-    <div class="p-body">
-      <div class="kicker"><span class="mono">Repository 01</span><span class="role mono">✦ Discover</span></div>
-      <h3>GitHub Treasure Hunt</h3>
-      <p class="p-desc">A calm, static discovery engine for open-source gems. Search a keyword, browse a topic, narrow to hidden gems, or roll the dice for a serendipitous repository — straight from GitHub's public search API.</p>
-      <ul class="features" data-reveal-group>
-        <li><span class="fx">→</span> Search by idea — <em>climate</em>, <em>accessibility</em>, <em>terminal</em></li>
-        <li><span class="fx">→</span> Explore by topic: AI, design, security, education, dev tools</li>
-        <li><span class="fx">→</span> Filter by star count to find genuinely hidden gems</li>
-        <li><span class="fx">→</span> "Surprise Me" hands you one hand-picked repo at a time</li>
-        <li><span class="fx">→</span> No AI agents, no accounts, no analytics — arrive, discover, leave</li>
-      </ul>
-      <div class="chips" aria-label="topics">
-        <span class="chip">JavaScript</span><span class="chip">Vite</span><span class="chip">Static</span><span class="chip">GitHub API</span>
-      </div>
-      <div class="p-meta">
-        <div><div class="n"><span data-count="17">17</span></div><div class="k">Commits</div></div>
-        <div><div class="n"><span data-count="1">1</span>★</div><div class="k">Stars</div></div>
-        <div><div class="n">MIT</div><div class="k">License</div></div>
-        <div><div class="n">100<span class="u">%</span></div><div class="k">Client-side</div></div>
-      </div>
-      <div class="p-links">
-        <a class="btn primary" href="https://purysho.github.io/github-treasure-hunt/" target="_blank" rel="noopener" data-magnetic>Open live ↗</a>
-        <a class="btn ghost" href="https://github.com/purysho/github-treasure-hunt" target="_blank" rel="noopener" data-magnetic>Source</a>
-      </div>
-    </div>
-  </article>
-</section>
-
-<!-- 02 -->
-<section class="wrap">
-  <article class="project flip">
-    <span class="p-index" aria-hidden="true">02</span>
-    <div class="p-media" data-reveal="scale">
-      <div class="window" data-tilt>
-        <div class="titlebar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
-          <span class="url">purysho.github.io/open-question-atlas/</span></div>
-        <div class="shot">
-          <img src="https://github.com/purysho/open-question-atlas/raw/main/docs/interface-preview.png"
-               alt="The Open Questions Atlas interface preview"
-               loading="lazy" width="1280" height="800" onerror="this.style.opacity=0">
-          <button class="live-btn" onclick="loadLive(this,'https://purysho.github.io/open-question-atlas/')">▶ Load live preview</button>
-        </div>
-      </div>
-    </div>
-    <div class="p-body">
-      <div class="kicker"><span class="mono">Repository 02</span><span class="role mono">✦ Wonder</span></div>
-      <h3>The Open Questions Atlas</h3>
-      <p class="p-desc">A calm, searchable map of the questions humanity has not answered yet. It turns open problems into a place to wander — where each question is the hero, with just enough context and a direct path into the source.</p>
-      <ul class="features" data-reveal-group>
-        <li><span class="fx">→</span> Atlas regions — browse the unknown by field, cosmology to medicine</li>
-        <li><span class="fx">→</span> Curated trails through origins, time, or the mind</li>
-        <li><span class="fx">→</span> A "question of the week" to begin with one open problem</li>
-        <li><span class="fx">→</span> Related questions keep a line of inquiry going</li>
-        <li><span class="fx">→</span> Every entry is sourced and traceable — honesty over volume</li>
-      </ul>
-      <div class="chips" aria-label="topics">
-        <span class="chip">open-science</span><span class="chip">serendipity</span><span class="chip">unsolved-problems</span><span class="chip">discovery</span>
-      </div>
-      <div class="p-meta">
-        <div><div class="n"><span data-count="16">16</span></div><div class="k">Commits</div></div>
-        <div><div class="n"><span data-count="1">1</span>★</div><div class="k">Stars</div></div>
-        <div><div class="n">MIT</div><div class="k">License</div></div>
-        <div><div class="n">0</div><div class="k">Backends</div></div>
-      </div>
-      <div class="p-links">
-        <a class="btn primary" href="https://purysho.github.io/open-question-atlas/" target="_blank" rel="noopener" data-magnetic>Open live ↗</a>
-        <a class="btn ghost" href="https://github.com/purysho/open-question-atlas" target="_blank" rel="noopener" data-magnetic>Source</a>
-      </div>
-    </div>
-  </article>
-</section>
-
-<!-- 03 -->
-<section class="wrap">
-  <article class="project">
-    <span class="p-index" aria-hidden="true">03</span>
-    <div class="p-media" data-reveal="scale">
-      <div class="window" data-tilt>
-        <div class="titlebar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
-          <span class="url">purysho.github.io/lodestar/</span></div>
-        <div class="shot">
-          <img src="https://github.com/purysho/lodestar/raw/main/lodestar-sky.png"
-               alt="Lodestar night sky with colour-coded stars, authored constellations and suggested links"
-               loading="lazy" width="1280" height="800" onerror="this.style.opacity=0">
-          <button class="live-btn" onclick="loadLive(this,'https://purysho.github.io/lodestar/')">▶ Load live preview</button>
-        </div>
-      </div>
-    </div>
-    <div class="p-body">
-      <div class="kicker"><span class="mono">Repository 03</span><span class="role mono">✦ Remember</span></div>
-      <h3>Lodestar</h3>
-      <p class="p-desc">A quiet, personal night sky for the things that struck you. Add a repository, question, link or thought; place it among your stars; then draw and name the constellations that matter to you. The whole sky lives in your browser.</p>
-      <ul class="features" data-reveal-group>
-        <li><span class="fx">→</span> Add stars with a title, note, tags and an optional link</li>
-        <li><span class="fx">→</span> Drag to place — normalized positions survive reloads and screens</li>
-        <li><span class="fx">→</span> Connect stars with a keyboard-friendly click-click flow</li>
-        <li><span class="fx">→</span> Faint suggestions appear when two stars share a tag</li>
-        <li><span class="fx">→</span> Export, import or share your whole sky as portable JSON</li>
-      </ul>
-      <div class="chips" aria-label="topics">
-        <span class="chip">SVG</span><span class="chip">localStorage</span><span class="chip">constellations</span><span class="chip">generative</span><span class="chip">build-in-public</span>
-      </div>
-      <div class="p-meta">
-        <div><div class="n"><span data-count="19">19</span></div><div class="k">Commits</div></div>
-        <div><div class="n">React</div><div class="k">+ Vite</div></div>
-        <div><div class="n">MIT</div><div class="k">License</div></div>
-        <div><div class="n">0</div><div class="k">Trackers</div></div>
-      </div>
-      <div class="p-links">
-        <a class="btn primary" href="https://purysho.github.io/lodestar/" target="_blank" rel="noopener" data-magnetic>Open live ↗</a>
-        <a class="btn ghost" href="https://github.com/purysho/lodestar" target="_blank" rel="noopener" data-magnetic>Source</a>
-      </div>
-    </div>
-  </article>
-</section>
-
-<!-- STATS -->
-<section class="stats">
+<div class="nav-shell">
   <div class="wrap">
-    <div class="stat-grid" data-reveal-group>
-      <div class="stat"><div class="n"><span data-count="3">3</span></div><div class="k">Tools in the trilogy</div></div>
-      <div class="stat"><div class="n"><span data-count="52">52</span></div><div class="k">Commits shipped in public</div></div>
-      <div class="stat"><div class="n"><span data-count="0">0</span></div><div class="k">Backends, accounts or trackers</div></div>
-      <div class="stat"><div class="n"><span data-count="100">100</span><span class="u">%</span></div><div class="k">Static &amp; client-side</div></div>
+    <nav aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Purysho home"><span class="brand-mark" aria-hidden="true"></span><span>PURYSHO</span></a>
+      <div class="nav-links">
+        <a href="#releases">Releases</a>
+        <a href="./wandering/">Wandering</a>
+        <a class="gh" href="https://github.com/purysho" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .7a11.5 11.5 0 0 0-3.64 22.4c.58.1.79-.25.79-.56v-2.2c-3.22.7-3.9-1.37-3.9-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.39.97.1-.75.4-1.27.74-1.56-2.57-.3-5.27-1.29-5.27-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.16 1.18A10.9 10.9 0 0 1 12 6.16c.98 0 1.95.13 2.86.38 2.2-1.49 3.16-1.18 3.16-1.18.63 1.58.23 2.75.11 3.04.74.81 1.19 1.83 1.19 3.09 0 4.41-2.71 5.39-5.29 5.68.42.36.79 1.07.79 2.16v3.2c0 .31.21.67.8.55A11.5 11.5 0 0 0 12 .7Z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<main id="top">
+  <div class="wrap hero">
+    <div class="hero-copy" data-reveal>
+      <h1><span>PURYSHO</span></h1>
+      <p class="claim">Private experiments. Public releases.</p>
+      <p class="lede">Independent software, local-first tools, and systems built to be understood. Most experiments stay private; the work here is deliberately released for other people to use, inspect, or build on.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#releases">Explore releases <svg class="arrow" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a class="btn secondary" href="./wandering/">Enter the wandering trilogy <svg class="arrow" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+    <div class="hero-art" aria-label="Purysho mark" data-reveal>
+      <div class="mark-frame" id="markFrame">
+        <div class="glass-shard shard-a" aria-hidden="true"></div>
+        <div class="glass-shard shard-b" aria-hidden="true"></div>
+        <img src="assets/purysho-mark.webp" alt="Purysho fragmented glass and gold emblem" />
+      </div>
+      <div class="hero-side-note" aria-hidden="true">ideas into useful things</div>
     </div>
   </div>
-</section>
 
-<!-- ETHOS -->
-<section class="wrap" id="ethos">
-  <div class="sec-head">
-    <span class="eyebrow">Shared principles</span>
-    <h2 data-split>Small tools, held to one standard.</h2>
-    <p>Different subjects, one temperament. Every project in the trilogy is built the same disciplined way.</p>
-  </div>
-  <div class="ethos-grid" data-reveal-group>
-    <div class="ecard" data-tilt><div class="g">🜛</div><h4>Static &amp; client-side</h4><p>Vite builds, deployed on GitHub Pages. Nothing to run, nothing to host, nothing to break.</p></div>
-    <div class="ecard" data-tilt><div class="g">◯</div><h4>No accounts, no tracking</h4><p>No sign-ups, no analytics, no secrets. Your data — when there is any — stays in your own browser.</p></div>
-    <div class="ecard" data-tilt><div class="g">✶</div><h4>Sourced &amp; honest</h4><p>A smaller true atlas beats a padded one. Every question is traceable to a real primary source.</p></div>
-    <div class="ecard" data-tilt><div class="g">⌨</div><h4>Keyboard-accessible</h4><p>Visible focus states everywhere — search, filters, links and star-drawing all work without a mouse.</p></div>
-    <div class="ecard" data-tilt><div class="g">◐</div><h4>Deliberately simple</h4><p>One centred panel, one accent colour, one clear job. Arrive, do the thing, leave lighter.</p></div>
-    <div class="ecard" data-tilt><div class="g">✦</div><h4>Built in public</h4><p>Open issues, good-first-issue labels, MIT licences. The whole trilogy is out in the open.</p></div>
-  </div>
+  <section class="releases" id="releases">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <h2>Public releases</h2>
+        <p>Three deliberately small tools with different jobs: understand a repository, find what is on your machine, and inspect how a database works beneath the API.</p>
+      </div>
 
-  <div class="maker" data-reveal="up">
-    <p><b>Made by purysho.</b> A set of small, calm tools for curious people — quietly shipped, openly sourced, and connected by a single throughline from discovery to memory.</p>
-    <a class="btn ghost" href="https://github.com/purysho" target="_blank" rel="noopener" data-magnetic>Follow on GitHub ↗</a>
-  </div>
-</section>
+      <div class="release-grid">
+        <a class="release-card blackbox" href="https://github.com/purysho/BLACKBOX" target="_blank" rel="noopener" data-reveal>
+          <div class="card-top"><img class="project-icon" src="assets/blackbox.svg" alt="BLACKBOX icon" /><span class="kind">Repository intelligence</span></div>
+          <h3>BLACKBOX</h3>
+          <p class="desc">Local repository forensics for structure, hotspots, risks, dependencies, and suspicious code patterns.</p>
+          <div class="facts"><span>Windows</span><span>Python</span><span>Local-first</span></div>
+          <span class="card-link">Open repository <svg class="arrow" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
 
-<!-- FOOTER -->
+        <a class="release-card needle" href="https://github.com/purysho/Needle" target="_blank" rel="noopener" data-reveal>
+          <div class="card-top"><img class="project-icon" src="assets/needle.svg" alt="Needle icon" /><span class="kind">Local search</span></div>
+          <h3>Needle</h3>
+          <p class="desc">A private local search engine for indexing, finding, browsing, and opening files on your own computer.</p>
+          <div class="facts"><span>Windows</span><span>Python</span><span>No cloud index</span></div>
+          <span class="card-link">Open repository <svg class="arrow" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+
+        <a class="release-card palisade" href="https://github.com/purysho/PalisadeDB" target="_blank" rel="noopener" data-reveal>
+          <div class="card-top"><img class="project-icon" src="assets/palisade.svg" alt="PalisadeDB icon" /><span class="kind">Database engine</span></div>
+          <h3>PalisadeDB</h3>
+          <p class="desc">A compact custom database engine with its own pager, B+ tree, SQL layer, transactions, and recovery machinery.</p>
+          <div class="facts"><span>Custom .pdb</span><span>B+ tree</span><span>No SQLite</span></div>
+          <span class="card-link">Open repository <svg class="arrow" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="principles">
+    <div class="wrap" data-reveal>
+      <div class="principle-rail" aria-label="Build principles">
+        <div class="principle"><span class="num">01</span><strong>Private by default</strong></div>
+        <div class="principle"><span class="num">02</span><strong>Local first where possible</strong></div>
+        <div class="principle"><span class="num">03</span><strong>Clear purpose, small surface</strong></div>
+        <div class="principle"><span class="num">04</span><strong>Release deliberately</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wandering" id="wandering">
+    <div class="wrap">
+      <div class="wander-panel" data-reveal>
+        <div class="wander-content">
+          <h2>Instruments for <em>wandering.</em></h2>
+          <p>The original Purysho portfolio now has its own home: three quiet web experiments connected by a throughline from discovery, to unanswered questions, to memory.</p>
+          <div class="trilogy" aria-label="Wandering trilogy projects"><span>GitHub Treasure Hunt</span><span>Open Question Atlas</span><span>Lodestar</span></div>
+          <div class="wander-actions">
+            <a class="btn primary" href="./wandering/">Enter the trilogy <svg class="arrow" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </div>
+        <div class="constellation" aria-hidden="true">
+          <svg viewBox="0 0 320 220">
+            <line x1="38" y1="151" x2="116" y2="76"/><line x1="116" y1="76" x2="201" y2="112"/><line x1="201" y1="112" x2="276" y2="48"/><line x1="201" y1="112" x2="251" y2="183"/>
+            <circle cx="38" cy="151" r="4"/><circle class="blue" cx="116" cy="76" r="5"/><circle cx="201" cy="112" r="4"/><circle class="blue" cx="276" cy="48" r="3.5"/><circle cx="251" cy="183" r="4"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
 <footer>
-  <div class="wrap">
-    <div class="foot-cta">
-      <span class="eyebrow">Pick a star</span>
-      <h2 data-split>Wander <em>in.</em></h2>
-      <a class="btn primary mega" href="https://github.com/purysho" target="_blank" rel="noopener" data-magnetic>Explore all repos ↗</a>
+  <div class="wrap footer-inner">
+    <div>
+      <h2 class="footer-title">Ideas into <span>useful things.</span></h2>
+      <div class="footer-copy">PURYSHO · INDEPENDENT SOFTWARE · 2026</div>
     </div>
-
-    <div class="foot-grid">
-      <div class="fcol">
-        <h5>✦ Discover</h5>
-        <a href="https://purysho.github.io/github-treasure-hunt/" target="_blank" rel="noopener">Treasure Hunt — live<span class="ar">↗</span></a>
-        <a href="https://github.com/purysho/github-treasure-hunt" target="_blank" rel="noopener">Source<span class="ar">↗</span></a>
-      </div>
-      <div class="fcol">
-        <h5>✦ Wonder</h5>
-        <a href="https://purysho.github.io/open-question-atlas/" target="_blank" rel="noopener">Questions Atlas — live<span class="ar">↗</span></a>
-        <a href="https://github.com/purysho/open-question-atlas" target="_blank" rel="noopener">Source<span class="ar">↗</span></a>
-      </div>
-      <div class="fcol">
-        <h5>✦ Remember</h5>
-        <a href="https://purysho.github.io/lodestar/" target="_blank" rel="noopener">Lodestar — live<span class="ar">↗</span></a>
-        <a href="https://github.com/purysho/lodestar" target="_blank" rel="noopener">Source<span class="ar">↗</span></a>
-      </div>
-    </div>
-
-    <div class="foot-base">
-      <span>© 2026 purysho · MIT licensed</span>
-      <span>Discover · Wonder · Remember</span>
+    <div class="footer-links">
+      <a href="https://github.com/purysho" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://github.com/purysho?tab=repositories" target="_blank" rel="noopener">All repositories ↗</a>
+      <a href="./wandering/">Wandering trilogy →</a>
     </div>
   </div>
 </footer>
 
-<svg class="grain" aria-hidden="true"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
+<script src="assets/site.js"></script>
 
-<!-- live preview loader (works with or without motion) -->
-<script>
-  function loadLive(btn, url){
-    const shot = btn.closest('.shot');
-    const img = shot.querySelector('img');
-    if(img) img.remove();
-    btn.remove();
-    const frame = document.createElement('iframe');
-    frame.src = url; frame.loading = 'lazy';
-    frame.title = 'Live preview';
-    shot.appendChild(frame);
-    const open = document.createElement('button');
-    open.className = 'live-btn';
-    open.textContent = 'Open in new tab ↗';
-    open.onclick = () => window.open(url,'_blank','noopener');
-    shot.appendChild(open);
-  }
-</script>
-
-<!-- ambient starfield: paints a static frame always; animation only under motion-OK -->
-<script>
-  (function(){
-    const canvas = document.getElementById('stars');
-    if(!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let w,h,dpr,stars=[],raf=null,t=0,running=false;
-    function size(){
-      dpr = Math.min(window.devicePixelRatio||1, 2);
-      w = canvas.width = innerWidth*dpr;
-      h = canvas.height = innerHeight*dpr;
-      canvas.style.width = innerWidth+'px';
-      canvas.style.height = innerHeight+'px';
-      const count = Math.min(160, Math.round(innerWidth*innerHeight/9000));
-      stars = Array.from({length:count},()=>({
-        x:Math.random()*w, y:Math.random()*h,
-        r:(Math.random()*1.5+0.3)*dpr,
-        a:Math.random()*0.6+0.2,
-        tw:Math.random()*Math.PI*2,
-        sp:Math.random()*0.6+0.15,
-        drift:(Math.random()-0.5)*0.12*dpr
-      }));
-    }
-    function paint(anim){
-      ctx.clearRect(0,0,w,h);
-      for(const s of stars){
-        const a = anim ? s.a*(0.55+0.45*Math.sin(s.tw + t*s.sp)) : s.a;
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
-        ctx.fillStyle = 'rgba('+ (s.r>1.1*dpr?'246,211,124':'238,241,251') +','+ a.toFixed(3) +')';
-        ctx.fill();
-        if(anim){ s.x += s.drift; if(s.x<0)s.x=w; if(s.x>w)s.x=0; }
-      }
-    }
-    function loop(){ t+=0.016; paint(true); raf=requestAnimationFrame(loop); }
-    window.__startStars = function(){
-      if(running) return; running=true; loop();
-    };
-    size(); paint(false);
-    let rz; addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>{size();paint(running);},200);});
-    // pause when hero off-screen to save cycles
-    const hero = document.querySelector('.hero');
-    if(hero && 'IntersectionObserver' in window){
-      new IntersectionObserver((es)=>{es.forEach(e=>{
-        if(!running) return;
-        if(e.isIntersecting){ if(!raf) loop(); }
-        else { if(raf){cancelAnimationFrame(raf);raf=null;} }
-      });},{threshold:0}).observe(hero);
-    }
-  })();
-</script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js"></script>
-<script>
-  if (window.gsap){
-    gsap.registerPlugin(ScrollTrigger, SplitText);
-    const mm = gsap.matchMedia();
-
-    mm.add("(prefers-reduced-motion: no-preference)", (context) => {
-      if (window.__startStars) window.__startStars();
-
-      document.fonts.ready.then(() => context.add(() => {
-        initIntro();
-        initScrollFX();
-        initPointerFX();
-        initAmbient();
-        initConstellation();
-        ScrollTrigger.refresh();
-      }));
-    });
-
-    function initIntro(){
-      const split = SplitText.create(".hero h1", { type:"lines", mask:"lines", autoSplit:true, aria:"auto" });
-      gsap.timeline({ defaults:{ ease:"power4.out", duration:1.1 } })
-        .from(".hero .eyebrow", { autoAlpha:0, y:24 })
-        .from(split.lines,      { yPercent:120, stagger:0.1 }, "-=0.75")
-        .from(".hero .lede",    { autoAlpha:0, y:24 }, "-=0.7")
-        .from(".cta-row .btn",  { autoAlpha:0, y:22, stagger:0.1 }, "-=0.8")
-        .from(".scrollcue",     { autoAlpha:0, y:14 }, "-=0.7");
-    }
-
-    function initScrollFX(){
-      gsap.utils.toArray("[data-reveal]").forEach((el)=>{
-        const from = { up:{y:64}, down:{y:-64}, left:{x:-64}, right:{x:64}, scale:{scale:0.92} }[el.dataset.reveal||"up"];
-        gsap.from(el, { ...from, autoAlpha:0, duration:1, ease:"power3.out",
-          scrollTrigger:{ trigger:el, start:"top 85%", once:true } });
-      });
-
-      gsap.utils.toArray("[data-reveal-group]").forEach((group)=>{
-        gsap.from(group.children, { y:46, autoAlpha:0, duration:.9, ease:"power3.out", stagger:0.08,
-          scrollTrigger:{ trigger:group, start:"top 82%", once:true } });
-      });
-
-      gsap.utils.toArray("[data-split]").forEach((el)=>{
-        const s = SplitText.create(el, { type:"words", aria:"auto", autoSplit:true });
-        gsap.from(s.words, { yPercent:80, autoAlpha:0, stagger:0.04, duration:.8, ease:"power3.out",
-          scrollTrigger:{ trigger:el, start:"top 85%", once:true } });
-      });
-
-      // stat + meta counters
-      gsap.utils.toArray("[data-count]").forEach((el)=>{
-        const end = parseFloat(el.dataset.count);
-        gsap.fromTo(el, { textContent:0 },
-          { textContent:end, snap:{ textContent:1 }, duration:1.8, ease:"power1.inOut",
-            scrollTrigger:{ trigger:el, start:"top 90%", once:true } });
-      });
-
-      // gentle parallax on the giant index numerals
-      gsap.utils.toArray(".p-index").forEach((el)=>{
-        gsap.to(el, { yPercent:-18, ease:"none",
-          scrollTrigger:{ trigger:el.closest("section"), start:"top bottom", end:"bottom top", scrub:true } });
-      });
-    }
-
-    function initPointerFX(){
-      document.querySelectorAll("[data-magnetic]").forEach((el)=>{
-        const xT = gsap.quickTo(el,"x",{duration:.4,ease:"power3"});
-        const yT = gsap.quickTo(el,"y",{duration:.4,ease:"power3"});
-        el.addEventListener("pointermove",(e)=>{
-          const r = el.getBoundingClientRect();
-          xT((e.clientX-r.left-r.width/2)*0.3);
-          yT((e.clientY-r.top-r.height/2)*0.4);
-        });
-        el.addEventListener("pointerleave",()=>{ xT(0); yT(0); });
-      });
-
-      document.querySelectorAll("[data-tilt]").forEach((card)=>{
-        card.addEventListener("pointermove",(e)=>{
-          const r = card.getBoundingClientRect();
-          gsap.to(card,{ rotationY:((e.clientX-r.left)/r.width-0.5)*10,
-            rotationX:-((e.clientY-r.top)/r.height-0.5)*8,
-            transformPerspective:900, duration:.4, ease:"power2.out" });
-        });
-        card.addEventListener("pointerleave",()=>gsap.to(card,{rotationX:0,rotationY:0,duration:.6,ease:"power2.out"}));
-      });
-    }
-
-    function initAmbient(){
-      gsap.utils.toArray(".blob").forEach((b,i)=>{
-        gsap.to(b,{ xPercent:gsap.utils.random(-24,24), yPercent:gsap.utils.random(-20,20),
-          duration:gsap.utils.random(10,16), repeat:-1, yoyo:true, ease:"sine.inOut", delay:i*0.7 });
-      });
-      // slow halo breathing on constellation stars
-      gsap.utils.toArray(".cx-star .halo").forEach((h,i)=>{
-        gsap.to(h,{ scale:1.25, transformOrigin:"center", opacity:"+=0.06", duration:2.4+i*0.4,
-          repeat:-1, yoyo:true, ease:"sine.inOut" });
-      });
-    }
-
-    function initConstellation(){
-      const stars  = gsap.utils.toArray(".cx-star");
-      const txts   = gsap.utils.toArray(".cx-txt");
-      const lines  = ["#cxl1","#cxl2"].map(s=>document.querySelector(s));
-      const faint  = document.querySelector("#cxl3");
-
-      gsap.set(stars, { scale:0, transformOrigin:"center", autoAlpha:0 });
-      gsap.set(txts,  { autoAlpha:0, y:12 });
-      gsap.set(lines, { strokeDashoffset:1 });
-      gsap.set(faint, { strokeDashoffset:1, autoAlpha:0 });
-
-      const order = [
-        [stars[0], txts[0]],
-        [stars[1], txts[1]],
-        [stars[2], txts[2]]
-      ];
-
-      const desktop = window.matchMedia("(min-width:900px)").matches;
-
-      const tl = gsap.timeline({
-        defaults:{ ease:"power2.out" },
-        scrollTrigger: desktop
-          ? { trigger:".constel-stage", start:"top 72%", end:"+=90%", scrub:0.6, pin:true, pinSpacing:true, invalidateOnRefresh:true }
-          : { trigger:".constel-stage", start:"top 80%", once:true }
-      });
-
-      tl.to(order[0][0], { scale:1, autoAlpha:1, duration:.5 })
-        .to(order[0][1], { autoAlpha:1, y:0, duration:.4 }, "-=.2")
-        .to(lines[0],    { strokeDashoffset:0, duration:.7, ease:"none" }, "+=.05")
-        .to(order[1][0], { scale:1, autoAlpha:1, duration:.5 }, "-=.1")
-        .to(order[1][1], { autoAlpha:1, y:0, duration:.4 }, "-=.2")
-        .to(lines[1],    { strokeDashoffset:0, duration:.7, ease:"none" }, "+=.05")
-        .to(order[2][0], { scale:1, autoAlpha:1, duration:.5 }, "-=.1")
-        .to(order[2][1], { autoAlpha:1, y:0, duration:.4 }, "-=.2")
-        .to(faint,       { strokeDashoffset:0, autoAlpha:.4, duration:.9, ease:"none" }, "+=.05");
-    }
-  }
-</script>
 </body>
 </html>
