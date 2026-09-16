@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#071008" />
+<title>Maintain — Purysho</title>
+<meta name="description" content="Maintain — Purysho tools for comparison, cleanup, disk analysis, and long-term system care." />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="survey-nav">
+  <a class="brand" href="../"><span class="core">◆</span><span>PURYSHO</span></a>
+  <nav aria-label="Primary navigation"><a href="../">HOME</a><a href="../understand/">UNDERSTAND</a><a href="../operate/">OPERATE</a><a class="active" href="./">MAINTAIN</a><a href="../wandering/">WANDER</a><a href="https://github.com/purysho" target="_blank" rel="noopener">GITHUB ↗</a></nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="contours" aria-hidden="true"></div>
+    <div class="hero-copy">
+      <p class="eyebrow">SYSTEM CARE / COLLECTION 03</p>
+      <h1>MAINTAIN</h1>
+      <p class="subhead">Survey. Compare. Clear what no longer belongs.</p>
+      <p class="lede">Three local-first tools for keeping a machine understandable over time: compare directory states, review duplicate files safely, and see where disk space actually went.</p>
+      <div class="hero-actions"><a href="#rift">Begin survey ↓</a><a href="../wandering/">Next collection: Wander →</a></div>
+    </div>
+    <div class="core-sample" aria-label="Layered geological core diagram"><span class="cap">SYSTEM STRATA</span><i></i><i></i><i></i><i></i><i></i><b>LOCAL DISK</b></div>
+  </section>
+
+  <section class="field-note">
+    <span>FIELD NOTE / 003</span>
+    <strong>Maintenance is easier when change is visible.</strong>
+    <p>These tools treat the filesystem like terrain: compare layers, identify redundancy, and measure where space is accumulating before changing anything.</p>
+  </section>
+
+  <section class="instrument rift" id="rift">
+    <div class="meta"><span>01</span><b>RIFT</b><em>DIFFERENCE SURVEY</em></div>
+    <div class="copy">
+      <h2>Rift</h2><p class="thesis">See exactly what changed.</p>
+      <p>Compare two folder trees without modifying either one. Rift classifies files as added, removed, changed, or unchanged and uses SHA-256 when content needs verification.</p>
+      <ul><li>Read-only directory comparison</li><li>SHA-256 content checks</li><li>Likely rename detection</li><li>JSON and CSV export</li></ul>
+      <a href="https://github.com/purysho/Rift" target="_blank" rel="noopener">Open Rift on GitHub ↗</a>
+    </div>
+    <div class="visual fault-map" aria-label="Fault line comparison map"><span class="left">BUILD A</span><span class="right">BUILD B</span><i class="fault f1"></i><i class="fault f2"></i><i class="fault f3"></i><b class="tag t1">+ 14</b><b class="tag t2">~ 07</b><b class="tag t3">− 03</b></div>
+  </section>
+
+  <section class="instrument cull" id="cull">
+    <div class="meta"><span>02</span><b>CULL</b><em>REDUNDANCY REVIEW</em></div>
+    <div class="copy">
+      <h2>Cull</h2><p class="thesis">Find duplicates. Decide safely.</p>
+      <p>Cull groups exact duplicates by content, surfaces near-name candidates for review, calculates reclaimable space, and uses reversible quarantine instead of permanent deletion.</p>
+      <ul><li>Exact duplicate grouping</li><li>Near-name review candidates</li><li>Reclaimable-space estimates</li><li>Reversible quarantine workflow</li></ul>
+      <a href="https://github.com/purysho/Cull" target="_blank" rel="noopener">Open Cull on GitHub ↗</a>
+    </div>
+    <div class="visual sample-grid" aria-label="Duplicate sample trays"><div>A1<span>MATCH</span></div><div>A2<span>MATCH</span></div><div>B1<span>KEEP</span></div><div>B2<span>REVIEW</span></div><div>C1<span>UNIQUE</span></div><div>C2<span>QUARANTINE</span></div></div>
+  </section>
+
+  <section class="instrument quarry" id="quarry">
+    <div class="meta"><span>03</span><b>QUARRY</b><em>SPACE ANALYSIS</em></div>
+    <div class="copy">
+      <h2>Quarry</h2><p class="thesis">Find what is consuming the drive.</p>
+      <p>Quarry scans a directory and turns storage into a readable survey: biggest files, top-level usage, extension totals, age buckets, and a visual treemap of what is taking up space.</p>
+      <ul><li>Largest-file analysis</li><li>Folder, extension and age totals</li><li>Treemap-style visualization</li><li>JSON export</li></ul>
+      <a href="https://github.com/purysho/Quarry" target="_blank" rel="noopener">Open Quarry on GitHub ↗</a>
+    </div>
+    <div class="visual bore" aria-label="Disk usage core sample"><div class="meter"><i style="--h:28%"></i><i style="--h:17%"></i><i style="--h:32%"></i><i style="--h:9%"></i><i style="--h:14%"></i></div><p><b>42.8 GB</b><span>surveyed</span></p></div>
+  </section>
+
+  <section class="principles"><p class="eyebrow">HOW MAINTAIN TOOLS BEHAVE</p><div><span><b>REVIEW FIRST</b>No destructive surprise.</span><span><b>LOCAL ONLY</b>Your files stay local.</span><span><b>MEASURED CHANGE</b>Show evidence before action.</span><span><b>REVERSIBLE WHERE POSSIBLE</b>Safe defaults over cleverness.</span></div></section>
+</main>
+<footer><a href="../">← Back to home</a><span>PURYSHO / MAINTAIN</span><a href="../wandering/">Explore Wandering →</a></footer>
+<script>const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});document.querySelectorAll('.instrument,.field-note,.principles').forEach(x=>io.observe(x));</script>
+</body>
+</html>
