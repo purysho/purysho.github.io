@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#0b0807" />
+<title>Operate — Purysho</title>
+<meta name="description" content="Operate — Purysho tools for communication, automation, and live system control." />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="control-nav">
+  <a class="brand" href="../"><span class="lamp gold"></span><span>PURYSHO</span></a>
+  <nav aria-label="Primary navigation"><a href="../">HOME</a><a href="../understand/">UNDERSTAND</a><a class="active" href="./">OPERATE</a><a href="../wandering/">WANDER</a><a href="https://github.com/purysho" target="_blank" rel="noopener">GITHUB ↗</a></nav>
+  <span class="status"><i></i>SYSTEM LIVE</span>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="signal-field" aria-hidden="true">
+      <svg viewBox="0 0 1200 620" preserveAspectRatio="none">
+        <path class="route r1" d="M-40 120 C180 120 210 310 420 310 S720 110 930 110 S1110 170 1240 170"/>
+        <path class="route r2" d="M-40 260 C190 260 240 470 470 470 S730 250 930 250 S1110 310 1240 310"/>
+        <path class="route r3" d="M-40 470 C160 470 250 190 490 190 S760 480 980 480 S1120 420 1240 420"/>
+      </svg>
+      <span class="node n1"></span><span class="node n2"></span><span class="node n3"></span><span class="node n4"></span><span class="node n5"></span>
+    </div>
+    <div class="hero-copy">
+      <p class="eyebrow">LIVE SYSTEMS / COLLECTION 02</p>
+      <h1>OPERATE</h1>
+      <p class="subhead">Send. Chain. Observe.</p>
+      <p class="lede">Three tools for systems in motion: communicate with software, automate repeated work, and see what your machine is doing right now.</p>
+      <div class="hero-actions"><a href="#relay">Enter control surface ↓</a><a href="../wandering/">Next collection: Wander →</a></div>
+    </div>
+    <div class="control-readout" aria-hidden="true"><span>BUS A</span><b>ONLINE</b><span>FLOW</span><b>12.4/s</b><span>LATENCY</span><b>42ms</b></div>
+  </section>
+
+  <section class="module blue" id="relay">
+    <div class="module-head"><span>MODULE 01</span><b>RELAY</b><em>HTTP CLIENT + MOCK SERVER</em><i class="lamp blue-lamp"></i></div>
+    <div class="module-copy">
+      <img src="../assets/relay.svg" alt="Relay icon" />
+      <div><h2>Relay</h2><p class="thesis">Inspect what your software says on the wire.</p></div>
+      <p>Build requests, inspect responses, keep a local history, export cURL, and spin up lightweight localhost mock endpoints without needing an account or hosted workspace.</p>
+      <ul><li>HTTP request builder</li><li>Response body, headers and timing</li><li>Saved requests and local history</li><li>Local mock server</li></ul>
+      <a href="https://github.com/purysho/Relay" target="_blank" rel="noopener">Open Relay on GitHub ↗</a>
+    </div>
+    <div class="console relay-console" aria-label="Relay request pipeline">
+      <div class="request"><span class="verb">GET</span><span class="url">http://localhost:1420/api/projects</span><span class="send">SEND</span></div>
+      <div class="tabs"><span>PARAMS</span><span>HEADERS</span><span>BODY</span><span class="on">RESPONSE</span><span>HISTORY</span></div>
+      <div class="response"><span>{</span><br>&nbsp;&nbsp;<b>"status"</b>: <em>"ok"</em>,<br>&nbsp;&nbsp;<b>"data"</b>: [ ... ]<br><span>}</span><small>200 OK&nbsp;&nbsp;·&nbsp;&nbsp;42 ms</small></div>
+      <div class="pulse-line"></div>
+    </div>
+  </section>
+
+  <section class="module orange" id="forge">
+    <div class="module-head"><span>MODULE 02</span><b>FORGE</b><em>WORKFLOW AUTOMATION</em><i class="lamp orange-lamp"></i></div>
+    <div class="module-copy">
+      <img src="../assets/forge.svg" alt="Forge icon" />
+      <div><h2>Forge</h2><p class="thesis">Turn repeated actions into reusable workflows.</p></div>
+      <p>Chain commands, file operations, HTTP requests, waits, and app launches into portable local workflows with explicit ordering, timeouts, logs, and stop controls.</p>
+      <ul><li>Command and process steps</li><li>File and directory operations</li><li>HTTP workflow steps</li><li>Portable workflow JSON</li></ul>
+      <a href="https://github.com/purysho/Forge" target="_blank" rel="noopener">Open Forge on GitHub ↗</a>
+    </div>
+    <div class="console forge-console" aria-label="Forge workflow sequence">
+      <div class="flow-title">BUILD RELEASE <span>RUNNING</span></div>
+      <ol><li><i></i><b>Run tests</b><span>PASS</span></li><li><i></i><b>Build executable</b><span>PASS</span></li><li><i></i><b>Copy files</b><span>PASS</span></li><li class="active"><i></i><b>Create archive</b><span>RUN</span></li><li><i></i><b>Open output folder</b><span>WAIT</span></li></ol>
+      <div class="progress"><i></i></div>
+    </div>
+  </section>
+
+  <section class="module red" id="pulse">
+    <div class="module-head"><span>MODULE 03</span><b>PULSE</b><em>PROCESS + NETWORK MONITOR</em><i class="lamp red-lamp"></i></div>
+    <div class="module-copy">
+      <img src="../assets/pulse.svg" alt="Pulse icon" />
+      <div><h2>Pulse</h2><p class="thesis">See what is running and how it connects.</p></div>
+      <p>Inspect process relationships, executable details, memory, CPU time, open ports, and TCP links so the machine reads as a system rather than a flat task list.</p>
+      <ul><li>Parent and child processes</li><li>Memory and CPU time</li><li>TCP connections and ports</li><li>Windows-rich provider with cross-platform fallbacks</li></ul>
+      <a href="https://github.com/purysho/Pulse" target="_blank" rel="noopener">Open Pulse on GitHub ↗</a>
+    </div>
+    <div class="console pulse-console" aria-label="Pulse process relationship graph">
+      <svg viewBox="0 0 500 360" aria-hidden="true"><path d="M250 70 L130 170 M250 70 L250 170 M250 70 L370 170 M130 170 L80 270 M130 170 L175 270 M370 170 L330 270 M370 170 L420 270"/><circle cx="250" cy="70" r="10"/><circle cx="130" cy="170" r="8"/><circle cx="250" cy="170" r="8"/><circle cx="370" cy="170" r="8"/></svg>
+      <div class="proc root">node.exe<span>:1420</span></div><div class="proc p1">chrome.exe<span>412 MB</span></div><div class="proc p2">python.exe<span>83 MB</span></div><div class="proc p3">code.exe<span>690 MB</span></div>
+      <div class="wave"></div>
+    </div>
+  </section>
+
+  <section class="principles"><p class="eyebrow">HOW THESE TOOLS BEHAVE</p><div><span><b>LOCAL FIRST</b>No account required.</span><span><b>DIRECT CONTROL</b>You stay in charge.</span><span><b>SMALL SURFACE</b>Focused and efficient.</span><span><b>FAST FEEDBACK</b>Built for iteration.</span></div></section>
+</main>
+<footer><a href="../">← Back to home</a><span>PURYSHO / OPERATE</span><a href="../wandering/">Explore Wandering →</a></footer>
+<script>const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});document.querySelectorAll('.module,.principles').forEach(x=>io.observe(x));</script>
+</body>
+</html>

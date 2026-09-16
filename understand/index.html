@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#061018" />
+<title>Understand — Purysho</title>
+<meta name="description" content="Understand — Purysho tools for inspection, structure, and seeing what lies beneath the surface." />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="draft-nav">
+  <a class="brand" href="../"><span class="brand-mark">◆</span><span>PURYSHO</span></a>
+  <nav aria-label="Primary navigation">
+    <a href="../">Home</a>
+    <a class="active" href="./">Understand</a>
+    <a href="../operate/">Operate</a>
+    <a href="../wandering/">Wander</a>
+    <a href="https://github.com/purysho" target="_blank" rel="noopener">GitHub ↗</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-copy">
+      <p class="eyebrow">SYSTEM STUDY / COLLECTION 01</p>
+      <h1>UNDERSTAND</h1>
+      <p class="subhead">Open the machine. Read the layers. See what is actually there.</p>
+      <p class="lede">Three local-first tools for turning opaque systems into readable ones: repository structure, personal files, and database internals.</p>
+      <div class="hero-links"><a href="#blackbox">Begin inspection ↓</a><a href="../operate/">Next collection: Operate →</a></div>
+    </div>
+    <div class="exploded" aria-label="Exploded system diagram">
+      <span class="plate p1"></span><span class="plate p2"></span><span class="plate p3"></span><span class="plate p4"></span>
+      <div class="axis axis-x"></div><div class="axis axis-y"></div>
+      <span class="measure m1">A / STRUCTURE</span><span class="measure m2">B / INDEX</span><span class="measure m3">C / STORAGE</span>
+    </div>
+  </section>
+
+  <section class="intro band">
+    <div class="band-label">FIELD NOTE 001</div>
+    <div class="band-copy"><strong>Understanding starts by exposing structure.</strong><span>These tools do not hide complexity behind magic. They make the important parts legible enough to inspect, question, and use.</span></div>
+    <div class="band-index"><span>03</span><small>INSTRUMENTS</small></div>
+  </section>
+
+  <section class="specimen cyan" id="blackbox">
+    <div class="spec-meta"><span>01</span><b>REPOSITORY FORENSICS</b><em>CYAN CHANNEL</em></div>
+    <div class="spec-copy">
+      <img src="../assets/blackbox.svg" alt="BLACKBOX icon" />
+      <h2>BLACKBOX</h2>
+      <p class="thesis">See what a codebase is really made of.</p>
+      <p>BLACKBOX scans a local repository and surfaces structure, language mix, hotspots, dependencies, TODO/FIXME signals, suspicious patterns, and exportable JSON.</p>
+      <ul><li>Repository structure and language mix</li><li>Hotspots, large files and suspicious patterns</li><li>Dependency and Git signals</li><li>Local-only scanning</li></ul>
+      <a class="repo-link" href="https://github.com/purysho/BLACKBOX" target="_blank" rel="noopener">Open BLACKBOX on GitHub ↗</a>
+    </div>
+    <div class="diagram repo-diagram" aria-label="Repository structure illustration">
+      <div class="scan"></div>
+      <div class="tree"><span class="root">repo/</span><span>src/</span><span>scanner.py</span><span>ui/</span><span>assets/</span><span>tests/</span></div>
+      <div class="heat h1">HOTSPOT 84%</div><div class="heat h2">RISK SIGNAL</div><div class="heat h3">12 TODO</div>
+    </div>
+  </section>
+
+  <section class="specimen green" id="needle">
+    <div class="spec-meta"><span>02</span><b>LOCAL SEARCH</b><em>GREEN CHANNEL</em></div>
+    <div class="spec-copy">
+      <img src="../assets/needle.svg" alt="Needle icon" />
+      <h2>Needle</h2>
+      <p class="thesis">Find what already exists on your machine.</p>
+      <p>Needle builds a lightweight local index over folders you choose, then lets you search, browse, open, and reveal files without sending filenames or content to a hosted search service.</p>
+      <ul><li>Build and update local indexes</li><li>Fast filename and path retrieval</li><li>Browse by extension</li><li>Open or reveal results directly</li></ul>
+      <a class="repo-link" href="https://github.com/purysho/Needle" target="_blank" rel="noopener">Open Needle on GitHub ↗</a>
+    </div>
+    <div class="diagram search-diagram" aria-label="Local search index illustration">
+      <div class="query">needle<span class="caret"></span></div>
+      <div class="result r1"><b>notes.txt</b><span>C:\work\notes.txt</span></div>
+      <div class="result r2"><b>needle_index.json</b><span>C:\data\needle_index.json</span></div>
+      <div class="result r3"><b>research.md</b><span>C:\docs\research.md</span></div>
+      <svg viewBox="0 0 400 170" aria-hidden="true"><path d="M30 105 C95 25 150 145 215 70 S325 58 372 95"/></svg>
+    </div>
+  </section>
+
+  <section class="specimen amber" id="palisade">
+    <div class="spec-meta"><span>03</span><b>DATABASE INTERNALS</b><em>AMBER CHANNEL</em></div>
+    <div class="spec-copy">
+      <img src="../assets/palisade.svg" alt="PalisadeDB icon" />
+      <h2>PalisadeDB</h2>
+      <p class="thesis">A database from first principles.</p>
+      <p>PalisadeDB exposes the mechanics normally hidden behind a database API: pages, B+ trees, transactions, SQL parsing, persistence, and recovery.</p>
+      <ul><li>Custom .pdb storage format</li><li>Pager and B+ tree implementation</li><li>SQL parsing and execution</li><li>Recovery and integrity inspection</li></ul>
+      <a class="repo-link" href="https://github.com/purysho/PalisadeDB" target="_blank" rel="noopener">Open PalisadeDB on GitHub ↗</a>
+    </div>
+    <div class="diagram db-diagram" aria-label="Database B plus tree illustration">
+      <div class="page pg-root">PAGE 0042<br><b>ROOT</b></div>
+      <div class="connector c1"></div><div class="connector c2"></div>
+      <div class="page pg-a">PAGE 0130<br><b>LEAF</b></div><div class="page pg-b">PAGE 0131<br><b>LEAF</b></div>
+      <div class="disk d1"></div><div class="disk d2"></div><div class="disk d3"></div>
+    </div>
+  </section>
+
+  <section class="principles">
+    <p class="eyebrow">WHAT BINDS THESE TOOLS</p>
+    <div class="principle-grid"><div><b>LOCAL FIRST</b><span>Your data stays yours.</span></div><div><b>INSPECTABLE</b><span>Transparent by design.</span></div><div><b>LOW-NOISE</b><span>Focused and purposeful.</span></div><div><b>BUILT FOR CLARITY</b><span>Complexity made legible.</span></div></div>
+  </section>
+</main>
+<footer><a href="../">← Back to home</a><span>PURYSHO / UNDERSTAND</span><a href="../operate/">Explore Operate →</a></footer>
+<script>const items=document.querySelectorAll('.specimen,.band,.principles');const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});items.forEach(x=>io.observe(x));</script>
+</body>
+</html>
