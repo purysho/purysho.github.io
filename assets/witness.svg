@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Witness</title><desc id="desc">Evidence trace rings with linked source nodes and a gold supported-answer core.</desc>
+  <rect width="256" height="256" rx="42" fill="#11111a"/>
+  <circle cx="128" cy="128" r="82" fill="#12141d" stroke="#050608" stroke-width="12"/>
+  <circle cx="128" cy="128" r="58" fill="none" stroke="#403b59" stroke-width="9"/>
+  <circle cx="128" cy="128" r="31" fill="none" stroke="#aa92ff" stroke-width="9"/>
+  <path d="M48 145c28 0 31-48 59-48s31 48 59 48 30-35 42-35" fill="none" stroke="#72d9ff" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="76" cy="132" r="9" fill="#72d9ff"/>
+  <circle cx="107" cy="97" r="9" fill="#aa92ff"/>
+  <circle cx="166" cy="145" r="9" fill="#d7ab55"/>
+  <circle cx="128" cy="128" r="16" fill="#d7ab55" stroke="#f3d892" stroke-width="5"/>
+</svg>
