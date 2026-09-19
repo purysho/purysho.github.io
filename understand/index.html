@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <meta name="theme-color" content="#061018" />
 <title>Understand — Purysho</title>
-<meta name="description" content="Understand — Purysho tools for inspection, structure, and seeing what lies beneath the surface." />
+<meta name="description" content="Understand — Purysho tools for inspection, structure, evidence, and seeing what lies beneath the surface." />
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -27,20 +27,20 @@
       <p class="eyebrow">SYSTEM STUDY / COLLECTION 01</p>
       <h1>UNDERSTAND</h1>
       <p class="subhead">Open the machine. Read the layers. See what is actually there.</p>
-      <p class="lede">Three local-first tools for turning opaque systems into readable ones: repository structure, personal files, and database internals.</p>
+      <p class="lede">Four local-first tools for turning opaque systems into readable ones: repository structure, personal files, database internals, and evidence-backed retrieval.</p>
       <div class="hero-links"><a href="#blackbox">Begin inspection ↓</a><a href="../operate/">Next collection: Operate →</a></div>
     </div>
     <div class="exploded" aria-label="Exploded system diagram">
       <span class="plate p1"></span><span class="plate p2"></span><span class="plate p3"></span><span class="plate p4"></span>
       <div class="axis axis-x"></div><div class="axis axis-y"></div>
-      <span class="measure m1">A / STRUCTURE</span><span class="measure m2">B / INDEX</span><span class="measure m3">C / STORAGE</span>
+      <span class="measure m1">A / STRUCTURE</span><span class="measure m2">B / INDEX</span><span class="measure m3">C / STORAGE</span><span class="measure m4">D / EVIDENCE</span>
     </div>
   </section>
 
   <section class="intro band">
     <div class="band-label">FIELD NOTE 001</div>
     <div class="band-copy"><strong>Understanding starts by exposing structure.</strong><span>These tools do not hide complexity behind magic. They make the important parts legible enough to inspect, question, and use.</span></div>
-    <div class="band-index"><span>03</span><small>INSTRUMENTS</small></div>
+    <div class="band-index"><span>04</span><small>INSTRUMENTS</small></div>
   </section>
 
   <section class="specimen cyan" id="blackbox">
@@ -94,6 +94,26 @@
       <div class="connector c1"></div><div class="connector c2"></div>
       <div class="page pg-a">PAGE 0130<br><b>LEAF</b></div><div class="page pg-b">PAGE 0131<br><b>LEAF</b></div>
       <div class="disk d1"></div><div class="disk d2"></div><div class="disk d3"></div>
+    </div>
+  </section>
+
+  <section class="specimen violet" id="witness">
+    <div class="spec-meta"><span>04</span><b>EVIDENCE SYSTEMS</b><em>VIOLET CHANNEL</em></div>
+    <div class="spec-copy">
+      <img src="../assets/witness.svg" alt="Witness icon" />
+      <h2>Witness</h2>
+      <p class="thesis">Answers you can inspect, challenge, and reproduce.</p>
+      <p>Witness is a local-first evidence and retrieval workbench that makes the hidden parts of RAG visible: what was retrieved, what supports an answer, what contradicts it, and whether the available evidence is actually sufficient.</p>
+      <ul><li>Sentence-level provenance and exact evidence spans</li><li>Inspectable retrieval routes, ranking and sufficiency</li><li>Contradiction and source-version awareness</li><li>Repeatable RAG Lab and adversarial Attack evaluation</li></ul>
+      <a class="repo-link" href="https://github.com/purysho/Witness" target="_blank" rel="noopener">Open Witness on GitHub ↗</a>
+    </div>
+    <div class="diagram evidence-diagram" aria-label="Witness evidence and provenance illustration">
+      <div class="evidence-query">QUESTION / TRACE</div>
+      <div class="evidence-node ev1"><b>E1</b><span>SOURCE SPAN</span></div>
+      <div class="evidence-node ev2"><b>E2</b><span>CORROBORATES</span></div>
+      <div class="evidence-node ev3"><b>E3</b><span>CONTRADICTS</span></div>
+      <div class="evidence-answer">ANSWER<br><strong>SUPPORTED</strong></div>
+      <svg viewBox="0 0 500 360" aria-hidden="true"><path d="M70 90 C150 90 145 150 230 150"/><path d="M70 185 C155 185 145 165 230 165"/><path d="M70 280 C150 280 145 180 230 180"/><path d="M300 165 C365 165 380 165 430 165"/></svg>
     </div>
   </section>
 
