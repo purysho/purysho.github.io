@@ -2,7 +2,7 @@
 
 Source for [purysho.github.io](https://purysho.github.io/) — the public portfolio and project index for Purysho.
 
-The site groups projects into four collections:
+The site presents featured products alongside four project collections. **Switchyard** is the flagship, and **EduBoard** is a featured education product with its own product page.
 
 - **Understand** — inspection, search, storage, and evidence systems.
 - **Operate** — tools for requests, workflows, processes, and runtime control.
@@ -17,6 +17,7 @@ The site is intentionally lightweight: static HTML/CSS/JS, no build service requ
 /
 ├── index.html
 ├── assets/
+├── eduboard/
 ├── understand/
 ├── operate/
 ├── maintain/
