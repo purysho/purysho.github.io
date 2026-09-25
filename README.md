@@ -2,7 +2,7 @@
 
 Source for [purysho.github.io](https://purysho.github.io/) — the public portfolio and project index for Purysho.
 
-The site presents **Switchyard** as the flagship alongside four project collections.
+The site presents **Switchyard** as the flagship and **QuantOS** as a featured product, alongside four project collections.
 
 - **Understand** — inspection, search, storage, and evidence systems.
 - **Operate** — tools for requests, workflows, processes, and runtime control.
