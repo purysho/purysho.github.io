@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#06080b" />
+<meta name="robots" content="noindex" />
+<title>Not found — Purysho</title>
+<script>
+  // Project sites moved when their repositories were renamed to match the
+  // rest of the collection. Forward old and wrongly-cased paths, keeping any
+  // deep path, query and hash (Lodestar's #/add?s=… links depend on the hash).
+  (function () {
+    var moved = {
+      "github-treasure-hunt": "TreasureHunt",
+      "open-question-atlas": "OpenQuestionAtlas",
+      "lodestar": "Lodestar",
+      "treasurehunt": "TreasureHunt",
+      "openquestionatlas": "OpenQuestionAtlas",
+      "cascade": "Cascade"
+    };
+    var parts = location.pathname.split("/");
+    var target = moved[(parts[1] || "").toLowerCase()];
+    if (target && parts[1] !== target) {
+      parts[1] = target;
+      location.replace(parts.join("/") + location.search + location.hash);
+    }
+  })();
+</script>
+<link rel="stylesheet" href="/assets/home.css" />
+</head>
+<body>
+<header class="site-nav">
+  <a class="brand" href="/" aria-label="Purysho home"><span class="brand-glyph">◆</span><span>PURYSHO</span></a>
+</header>
+<main>
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="micro">404 / NOT FOUND</p>
+      <h1>Lost the thread.</h1>
+      <p class="lede">Nothing lives at this address. The tools are all still here.</p>
+      <div class="hero-actions"><a class="button primary" href="/">Back to Purysho →</a><a class="button" href="https://github.com/purysho?tab=repositories">All repositories ↗</a></div>
+    </div>
+  </section>
+</main>
+</body>
+</html>
