@@ -29,3 +29,8 @@ The site is intentionally lightweight: static HTML/CSS/JS, no build service requ
 **https://purysho.github.io/**
 
 The GitHub profile presentation lives separately in [purysho/purysho](https://github.com/purysho/purysho).
+
+## License
+
+The site's code is released under the [MIT License](LICENSE). The Purysho
+name, emblem and artwork are not covered by that licence and remain reserved.
