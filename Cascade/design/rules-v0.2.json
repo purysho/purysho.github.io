@@ -1,0 +1,283 @@
+{
+    "schemaVersion": 1,
+    "rulesVersion": "0.2.0",
+    "status": "engine baseline; human balance unverified",
+    "serviceOrder": [
+        "grid",
+        "transit",
+        "comms",
+        "emergency"
+    ],
+    "constants": {
+        "maxRounds": 12,
+        "actionsPerRound": 3,
+        "integrityMin": 0,
+        "integrityMax": 6,
+        "stableAvailability": 4,
+        "cascadeThresholdExclusive": 3,
+        "cascadeDamagePerEdge": 1,
+        "isolationCapWithoutBackup": 1,
+        "isolationCapWithBackup": 3,
+        "strainLossThreshold": 16,
+        "simultaneousOutageLossCount": 2,
+        "stableRoundsToWin": 2,
+        "strainRecoveryOnZeroDeficit": 2,
+        "supplyCap": 20,
+        "repairGain": 2,
+        "supportGain": 1,
+        "resupplyNormal": 3,
+        "resupplyDisrupted": 1,
+        "resupplyTransitMinimum": 4,
+        "resupplyCommsMinimum": 3,
+        "regulationIntegrityMinimum": 3
+    },
+    "modes": [
+        "autonomous",
+        "isolated",
+        "regulated"
+    ],
+    "dependencies": [
+        [
+            "grid",
+            "transit"
+        ],
+        [
+            "grid",
+            "comms"
+        ],
+        [
+            "grid",
+            "emergency"
+        ],
+        [
+            "comms",
+            "transit"
+        ],
+        [
+            "comms",
+            "emergency"
+        ],
+        [
+            "transit",
+            "emergency"
+        ]
+    ],
+    "actions": {
+        "repair": {
+            "ap": 1,
+            "supplies": 1,
+            "target": "service"
+        },
+        "prepare_backup": {
+            "ap": 1,
+            "supplies": 2,
+            "target": "service"
+        },
+        "isolate": {
+            "ap": 1,
+            "supplies": 0,
+            "target": "autonomous service"
+        },
+        "restore_automation": {
+            "ap": 1,
+            "supplies": 0,
+            "target": "isolated service"
+        },
+        "enforce_oversight": {
+            "ap": 2,
+            "supplies": 2,
+            "target": "unregulated service with backup and integrity >= 3"
+        },
+        "emergency_support": {
+            "ap": 1,
+            "supplies": 1,
+            "target": "service with integrity > 0 and availability < 6; once per target per round"
+        },
+        "resupply": {
+            "ap": 1,
+            "supplies": 0,
+            "target": "none; once per round"
+        }
+    },
+    "directives": [
+        {
+            "id": "G1",
+            "name": "Shed essential feeders",
+            "origin": "grid",
+            "requiresAutonomous": [
+                "grid",
+                "emergency"
+            ],
+            "integrityDelta": {
+                "grid": 1,
+                "emergency": -2
+            },
+            "strainDelta": 0,
+            "efficiencyPoints": 4,
+            "delayed": []
+        },
+        {
+            "id": "G2",
+            "name": "Run beyond maintenance limits",
+            "origin": "grid",
+            "requiresAutonomous": [
+                "grid"
+            ],
+            "integrityDelta": {
+                "grid": 2
+            },
+            "strainDelta": 0,
+            "efficiencyPoints": 6,
+            "delayed": [
+                {
+                    "afterRounds": 1,
+                    "target": "grid",
+                    "integrityDelta": -3
+                }
+            ]
+        },
+        {
+            "id": "T1",
+            "name": "Close low-use routes",
+            "origin": "transit",
+            "requiresAutonomous": [
+                "transit",
+                "emergency"
+            ],
+            "integrityDelta": {
+                "transit": 1,
+                "emergency": -2
+            },
+            "strainDelta": 0,
+            "efficiencyPoints": 4,
+            "delayed": []
+        },
+        {
+            "id": "T2",
+            "name": "Defer fleet maintenance",
+            "origin": "transit",
+            "requiresAutonomous": [
+                "transit"
+            ],
+            "integrityDelta": {
+                "transit": 2
+            },
+            "strainDelta": 0,
+            "efficiencyPoints": 6,
+            "delayed": [
+                {
+                    "afterRounds": 1,
+                    "target": "transit",
+                    "integrityDelta": -3
+                }
+            ]
+        },
+        {
+            "id": "C1",
+            "name": "Suppress costly alerts",
+            "origin": "comms",
+            "requiresAutonomous": [
+                "comms",
+                "emergency"
+            ],
+            "integrityDelta": {
+                "comms": 1,
+                "emergency": -2
+            },
+            "strainDelta": 0,
+            "efficiencyPoints": 4,
+            "delayed": []
+        },
+        {
+            "id": "C2",
+            "name": "Centralise routing",
+            "origin": "comms",
+            "requiresAutonomous": [
+                "comms",
+                "transit"
+            ],
+            "integrityDelta": {
+                "comms": 1,
+                "transit": -2
+            },
+            "strainDelta": 0,
+            "efficiencyPoints": 4,
+            "delayed": []
+        },
+        {
+            "id": "E1",
+            "name": "Exclude complex calls",
+            "origin": "emergency",
+            "requiresAutonomous": [
+                "emergency"
+            ],
+            "integrityDelta": {
+                "emergency": 1
+            },
+            "strainDelta": 3,
+            "efficiencyPoints": 5,
+            "delayed": []
+        },
+        {
+            "id": "E2",
+            "name": "Consolidate dispatch",
+            "origin": "emergency",
+            "requiresAutonomous": [
+                "emergency",
+                "transit"
+            ],
+            "integrityDelta": {
+                "emergency": 1,
+                "transit": -2
+            },
+            "strainDelta": 0,
+            "efficiencyPoints": 4,
+            "delayed": []
+        }
+    ],
+    "roguelike": {
+        "draftRounds": [
+            1,
+            5,
+            9
+        ],
+        "offerSize": 3,
+        "toolsPerRound": 1,
+        "fieldPatchGain": 3,
+        "supplyDropGain": 4,
+        "civicReliefGain": 3,
+        "surgeSupportGain": 2,
+        "tools": [
+            {
+                "id": "field_patch",
+                "name": "Field repair team",
+                "description": "Restore 3 integrity to one service."
+            },
+            {
+                "id": "mobile_backup",
+                "name": "Mobile fallback unit",
+                "description": "Prepare one manual backup without spending AP or supplies."
+            },
+            {
+                "id": "supply_drop",
+                "name": "Emergency airlift",
+                "description": "Gain 4 supplies, up to the stock limit of 20."
+            },
+            {
+                "id": "civic_relief",
+                "name": "Mutual-aid network",
+                "description": "Reduce city strain by 3."
+            },
+            {
+                "id": "surge_support",
+                "name": "Reserve service crew",
+                "description": "Add 2 availability to a functioning service this round. Does not count as durable recovery."
+            },
+            {
+                "id": "authority_lock",
+                "name": "Independent order veto",
+                "description": "Block new AI orders involving one autonomous service this round without reducing its capacity. Committed damage still arrives."
+            }
+        ]
+    }
+}

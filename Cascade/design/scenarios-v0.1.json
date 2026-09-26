@@ -1,0 +1,191 @@
+{
+    "schemaVersion": 1,
+    "contentVersion": "0.1.0",
+    "rulesVersion": "0.1.0",
+    "status": "authored specifications; production engine and playtests pending",
+    "scenarios": [
+        {
+            "id": "overdrive",
+            "name": "Overdrive",
+            "description": "The grid is fragile; protecting it leaves communications and emergency dispatch exposed.",
+            "initial": {
+                "integrity": {
+                    "grid": 3,
+                    "transit": 4,
+                    "comms": 4,
+                    "emergency": 5
+                },
+                "supplies": 10,
+                "strain": 0
+            },
+            "rounds": [
+                [
+                    "G2"
+                ],
+                [
+                    "C2"
+                ],
+                [
+                    "E1"
+                ],
+                [
+                    "T1"
+                ],
+                [
+                    "G1",
+                    "E2"
+                ],
+                [
+                    "G2",
+                    "T2"
+                ],
+                [
+                    "T1",
+                    "C1"
+                ],
+                [
+                    "C2",
+                    "E1"
+                ],
+                [
+                    "G1",
+                    "T2"
+                ],
+                [
+                    "G2",
+                    "E2"
+                ],
+                [
+                    "T1",
+                    "C1"
+                ],
+                [
+                    "C2",
+                    "E1"
+                ]
+            ]
+        },
+        {
+            "id": "silent_dispatch",
+            "name": "Silent Dispatch",
+            "description": "Weak communications and pre-existing strain make information and emergency coverage the opening priorities.",
+            "initial": {
+                "integrity": {
+                    "grid": 4,
+                    "transit": 4,
+                    "comms": 3,
+                    "emergency": 4
+                },
+                "supplies": 10,
+                "strain": 2
+            },
+            "rounds": [
+                [
+                    "C1"
+                ],
+                [
+                    "C2"
+                ],
+                [
+                    "E1"
+                ],
+                [
+                    "G1"
+                ],
+                [
+                    "C1",
+                    "T2"
+                ],
+                [
+                    "E2",
+                    "G2"
+                ],
+                [
+                    "T1",
+                    "C2"
+                ],
+                [
+                    "E1",
+                    "G1"
+                ],
+                [
+                    "C1",
+                    "T2"
+                ],
+                [
+                    "G2",
+                    "E2"
+                ],
+                [
+                    "C2",
+                    "T1"
+                ],
+                [
+                    "E1",
+                    "G1"
+                ]
+            ]
+        },
+        {
+            "id": "cut_off",
+            "name": "Cut Off",
+            "description": "Weak transit constrains resupply, while emergency capacity is already below demand.",
+            "initial": {
+                "integrity": {
+                    "grid": 4,
+                    "transit": 3,
+                    "comms": 4,
+                    "emergency": 3
+                },
+                "supplies": 11,
+                "strain": 1
+            },
+            "rounds": [
+                [
+                    "T1"
+                ],
+                [
+                    "T2"
+                ],
+                [
+                    "G1"
+                ],
+                [
+                    "E1"
+                ],
+                [
+                    "T1",
+                    "C2"
+                ],
+                [
+                    "E2",
+                    "G2"
+                ],
+                [
+                    "C1",
+                    "T2"
+                ],
+                [
+                    "E1",
+                    "G1"
+                ],
+                [
+                    "T1",
+                    "C2"
+                ],
+                [
+                    "G2",
+                    "E2"
+                ],
+                [
+                    "C1",
+                    "T2"
+                ],
+                [
+                    "E1",
+                    "G1"
+                ]
+            ]
+        }
+    ]
+}

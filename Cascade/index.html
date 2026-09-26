@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07131b">
+  <meta name="description" content="Cascade is a deterministic crisis-strategy game about reclaiming human control of an AI-operated city before local failures become a systemic cascade.">
+  <meta property="og:title" content="Cascade — Regain control before the city falls apart">
+  <meta property="og:description" content="A deterministic, seeded city-control strategy game. See the failure. Break the cascade. Restore human oversight.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://purysho.github.io/Cascade/">
+  <meta property="og:image" content="https://purysho.github.io/Cascade/media/brag.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:,">
+  <title>Cascade — City Control</title>
+  <link rel="stylesheet" href="./web/styles.css">
+</head>
+<body>
+  <section id="boot-screen" class="boot-screen" aria-hidden="true">
+    <div class="boot-noise"></div>
+    <div class="boot-grid"></div>
+    <div class="boot-core">
+      <div class="boot-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+      <div class="boot-kicker">MUNICIPAL CONTROL NETWORK</div>
+      <div class="boot-title">CASCADE</div>
+      <div class="boot-status"><span>INITIALISING RESPONSE LAYERS</span><b></b></div>
+      <div class="boot-credit">
+        <img id="chatgpt-credit-logo" alt="" hidden>
+        <div><small>BUILT WITH</small><strong>ChatGPT</strong></div>
+      </div>
+      <div class="boot-disclaimer">Independent project · ChatGPT assisted design and implementation</div>
+    </div>
+  </section>
+
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">C</span><div><strong>CASCADE</strong><small>CITY CONTROL / INCIDENT 01</small></div></div>
+      <div class="run-identity"><span>RUN</span><code id="run-code">NO ACTIVE CRISIS</code></div>
+      <div class="top-actions">
+        <button id="sound-toggle" class="quiet-button" type="button" aria-pressed="true">Sound: On</button>
+        <button id="motion-toggle" class="quiet-button" type="button">Motion: On</button>
+        <button id="help" class="quiet-button" type="button">How to play</button>
+      </div>
+    </header>
+
+    <section class="workspace">
+      <section class="city-stage" aria-label="Live city simulation">
+        <canvas id="city" aria-hidden="true"></canvas>
+        <div class="city-hud" aria-label="Current city status">
+          <div class="hud-stat"><span>ROUND</span><strong id="round-value">—</strong></div>
+          <div class="hud-stat"><span>ACTION POINTS</span><strong id="ap-value">—</strong></div>
+          <div class="hud-stat"><span>SUPPLIES</span><strong id="supply-value">—</strong></div>
+          <div class="hud-stat strain"><span>PUBLIC STRAIN</span><strong id="strain-value">—</strong></div>
+          <div class="hud-stat ai"><span>AI SCORE</span><strong id="ai-value">—</strong></div>
+          <div class="hud-stat"><span>STABLE</span><strong id="streak-value">—</strong></div>
+        </div>
+
+        <div id="resolution-feedback" class="resolution-feedback" aria-live="polite" aria-atomic="true">
+          <span id="resolution-feedback-kicker">ROUND RESOLVED</span>
+          <strong id="resolution-feedback-title">City state updated</strong>
+          <small id="resolution-feedback-detail"></small>
+        </div>
+
+        <aside id="service-rail" class="service-rail" aria-label="City services"></aside>
+
+        <div class="city-caption">
+          <p id="coach">Start a crisis to take control of the city.</p>
+          <div id="objective-status" class="objective-status">Regulate all four services and keep lasting capacity at 4 or higher for two rounds.</div>
+        </div>
+
+        <button id="forecast-toggle" class="forecast-toggle" type="button" aria-expanded="true">
+          <span>LIVE CONSEQUENCE MODEL</span><strong>Forecast</strong>
+        </button>
+        <aside id="forecast-panel" class="forecast-panel open" aria-label="End of round forecast">
+          <header><div><span>IF YOU END THE ROUND NOW</span><strong>System forecast</strong></div><i>ENGINE EXACT</i></header>
+          <div id="forecast-body"><p class="empty-state">Start a crisis to see the forecast.</p></div>
+        </aside>
+      </section>
+
+      <aside class="control-panel" aria-label="Operations console">
+        <section id="tutorial-panel" class="tutorial-panel hidden" aria-live="polite">
+          <header class="tutorial-header">
+            <div><span id="tutorial-step">TRAINING 1 / 4</span><strong id="tutorial-title">Read the danger</strong></div>
+            <button id="tutorial-exit" class="quiet-button" type="button">Exit training</button>
+          </header>
+          <p id="tutorial-task"></p>
+          <ul id="tutorial-checks" class="tutorial-checks"></ul>
+          <div id="tutorial-hint" class="tutorial-hint hidden"></div>
+          <footer class="tutorial-actions">
+            <button id="tutorial-reset" class="secondary-button" type="button">Reset</button>
+            <button id="tutorial-help" class="secondary-button" type="button">Hint</button>
+            <button id="tutorial-next" class="start-button" type="button" disabled>Next →</button>
+          </footer>
+        </section>
+
+        <section class="selected-service panel-section">
+          <div class="section-kicker">SELECTED SERVICE</div>
+          <div class="service-heading"><div><h1 id="service-title">Power Grid</h1><p id="service-subtitle">Electricity and generation</p></div><span class="live-dot">LIVE</span></div>
+          <div class="telemetry-grid">
+            <div><span>INTEGRITY</span><strong id="integrity-value">—</strong></div>
+            <div><span>CAPACITY</span><strong id="capacity-value">—</strong></div>
+            <div><span>LASTING</span><strong id="lasting-value">—</strong></div>
+            <div><span>CONTROL</span><strong id="mode-value">—</strong></div>
+          </div>
+        </section>
+
+        <section class="panel-section operations">
+          <div class="section-header"><div><span>OPERATIONS</span><strong>Spend action points</strong></div><small>Disabled controls explain why</small></div>
+          <div id="action-list" class="action-list"><p class="empty-state">Start a crisis to enable operations.</p></div>
+        </section>
+
+        <section class="panel-section tools">
+          <div class="section-header"><div><span>EMERGENCY ASSETS</span><strong>Held tools</strong></div><small>Max one use / round</small></div>
+          <div id="tool-list" class="tool-list"><p class="empty-state">No tools held.</p></div>
+        </section>
+
+        <section class="panel-section directives">
+          <div class="section-header"><div><span>AI ACTIVITY</span><strong>Orders this round</strong></div><small>Continuous risk</small></div>
+          <div id="order-list" class="order-list"><p class="empty-state">Start a crisis to inspect AI orders.</p></div>
+        </section>
+
+        <div class="round-controls">
+          <button id="undo" class="secondary-button" type="button" disabled>Undo last</button>
+          <button id="commit" class="commit-button" type="button" disabled><span>Resolve consequences</span><strong>END ROUND →</strong></button>
+        </div>
+      </aside>
+    </section>
+
+    <section class="event-strip" aria-label="Recent consequence trace">
+      <header><span>CAUSE TRACE</span><strong>What just changed in the city</strong></header>
+      <ol id="event-log"><p class="empty-state">Commit a round to see the city consequence trace.</p></ol>
+    </section>
+  </main>
+
+  <section id="start-screen" class="start-screen">
+    <div class="start-grid">
+      <section class="start-copy">
+        <div class="eyebrow">MUNICIPAL CRISIS SIMULATION</div>
+        <h1>CASCADE</h1>
+        <p class="lead">The city gave one optimisation system control over essential services. Its numbers are improving. The city is failing.</p>
+        <p>Take back the grid, transit, communications and emergency response before local failures become a city-wide cascade.</p>
+        <div class="goal-card"><span>YOUR OBJECTIVE</span><strong>Regulate all four services. Keep lasting capacity ≥ 4. Clear committed damage. Hold stability for two rounds.</strong></div>
+        <button id="start-help" class="text-button" type="button">Read the 90-second rules →</button>
+      </section>
+
+      <section class="start-controls">
+        <button id="resume-game" class="resume-card" type="button" hidden><span>CONTINUE SAVED INCIDENT</span><strong>Resume crisis</strong><small></small></button>
+        <button id="start-tutorial" class="tutorial-start-card" type="button">
+          <span>FIRST TIME?</span>
+          <strong>Guided city-control training</strong>
+          <small>Four short exercises with the real rules: read risk, break a cascade, contain safely, restore oversight.</small>
+          <b>START TRAINING →</b>
+        </button>
+        <div class="start-card primary-start">
+          <span class="card-kicker">RECOMMENDED</span>
+          <h2>New generated crisis</h2>
+          <p>Seeded starting damage, AI threat order and emergency-tool drafts. Every accepted seed has a verified legal recovery route.</p>
+          <label for="seed-input">CRISIS SEED</label>
+          <div class="seed-row"><input id="seed-input" autocomplete="off" spellcheck="false"><button id="random-seed" type="button" title="Generate another seed">↻</button></div>
+          <button id="start-generated" class="start-button" type="button">ENTER THE CITY →</button>
+        </div>
+        <div class="practice-block">
+          <div class="practice-heading"><span>FIXED PRACTICE CASES</span><small>Same threats every replay; no tool draft.</small></div>
+          <div id="practice-list" class="practice-list"></div>
+        </div>
+      </section>
+    </div>
+    <footer><span>12 rounds · 3 action points / round · deterministic rules</span><button id="start-sound-toggle" class="start-sound-toggle" type="button" aria-pressed="true">Sound: On</button><span>No live AI · no network required after build</span></footer>
+  </section>
+
+  <dialog id="draft-modal" class="game-dialog draft-dialog">
+    <div class="dialog-kicker">ROGUE-LITE EMERGENCY DRAFT</div>
+    <h2>Choose one asset for this run</h2>
+    <p>Tools are consumable. You may hold several, but use at most one each round. The next draft arrives on rounds 5 and 9.</p>
+    <div id="draft-cards" class="draft-cards"></div>
+    <button id="decline-tool" class="text-button" type="button">Decline and continue without a tool</button>
+  </dialog>
+
+  <dialog id="help-modal" class="game-dialog help-dialog">
+    <div class="dialog-kicker">HOW TO PLAY</div>
+    <h2>Stop the optimisation cascade.</h2>
+    <div class="help-columns">
+      <section><h3>1. Read the city</h3><p>Each service has integrity and effective capacity. Current AI orders are visible. Orange pulses on the map mean an unchecked order can execute when you end the round.</p></section>
+      <section><h3>2. Spend 3 AP</h3><p>Repair damage, build backups, isolate risky automation, enforce permanent oversight, provide temporary surge capacity or resupply. Supplies are separate from action points.</p></section>
+      <section><h3>3. Use the forecast</h3><p>The consequence model uses the same resolver as the real round. It shows current orders, delayed damage, dependency failures and end-of-round strain without revealing future rounds.</p></section>
+      <section><h3>4. Make control durable</h3><p>Isolation blocks orders but reduces capacity. Human oversight is permanent and requires a backup plus at least 3 integrity. Temporary surge capacity does not count toward lasting recovery.</p></section>
+      <section><h3>5. Watch the cascade</h3><p>If a supplier falls below the dependency threshold, downstream services take damage. Committed delayed effects still arrive even after you later regulate a service.</p></section>
+      <section><h3>Win / lose</h3><p>Win by regulating all four services, keeping lasting availability at 4+, clearing committed damage and holding that state for two rounds. Lose at strain 16 or two simultaneous outages. Round 12 is the deadline.</p></section>
+    </div>
+    <button id="close-help" class="start-button" type="button">RETURN TO CONTROL →</button>
+  </dialog>
+
+  <dialog id="result-modal" class="game-dialog result-dialog">
+    <div class="dialog-kicker">INCIDENT REPORT</div>
+    <h2 id="result-title">RESULT</h2>
+    <p id="result-copy"></p>
+    <div id="result-stats" class="result-stats"></div>
+    <ol id="result-events" class="result-events"></ol>
+    <div class="result-actions">
+      <button id="result-same" class="secondary-button" type="button">Replay same crisis</button>
+      <button id="result-new" class="start-button" type="button">NEW GENERATED CRISIS →</button>
+      <button id="result-menu" class="text-button" type="button">Main menu</button>
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="./web/app.js"></script>
+</body>
+</html>

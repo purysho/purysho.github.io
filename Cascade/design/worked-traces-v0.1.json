@@ -1,0 +1,425 @@
+{
+    "schemaVersion": 1,
+    "rulesVersion": "0.1.0",
+    "contentVersion": "0.1.0",
+    "status": "design arithmetic checked with a temporary calculator; production engine not implemented",
+    "serviceOrder": [
+        "grid",
+        "transit",
+        "comms",
+        "emergency"
+    ],
+    "cases": [
+        {
+            "name": "Recovery witness",
+            "scenarioId": "overdrive",
+            "plans": [
+                [
+                    {
+                        "action": "prepare_backup",
+                        "target": "grid"
+                    },
+                    {
+                        "action": "enforce_oversight",
+                        "target": "grid"
+                    }
+                ],
+                [
+                    {
+                        "action": "repair",
+                        "target": "grid"
+                    },
+                    {
+                        "action": "prepare_backup",
+                        "target": "comms"
+                    },
+                    {
+                        "action": "resupply"
+                    }
+                ],
+                [
+                    {
+                        "action": "repair",
+                        "target": "transit"
+                    },
+                    {
+                        "action": "enforce_oversight",
+                        "target": "comms"
+                    }
+                ],
+                [
+                    {
+                        "action": "resupply"
+                    },
+                    {
+                        "action": "prepare_backup",
+                        "target": "emergency"
+                    },
+                    {
+                        "action": "repair",
+                        "target": "transit"
+                    }
+                ],
+                [
+                    {
+                        "action": "resupply"
+                    },
+                    {
+                        "action": "enforce_oversight",
+                        "target": "emergency"
+                    }
+                ],
+                [
+                    {
+                        "action": "repair",
+                        "target": "emergency"
+                    },
+                    {
+                        "action": "resupply"
+                    },
+                    {
+                        "action": "prepare_backup",
+                        "target": "transit"
+                    }
+                ],
+                [
+                    {
+                        "action": "enforce_oversight",
+                        "target": "transit"
+                    },
+                    {
+                        "action": "resupply"
+                    }
+                ],
+                [
+                    {
+                        "action": "repair",
+                        "target": "transit"
+                    }
+                ],
+                []
+            ],
+            "expectedRoundEnds": [
+                {
+                    "round": 1,
+                    "integrity": [
+                        3,
+                        4,
+                        4,
+                        5
+                    ],
+                    "availability": [
+                        3,
+                        4,
+                        4,
+                        5
+                    ],
+                    "supplies": 6,
+                    "strain": 1,
+                    "points": 0,
+                    "stableStreak": 0,
+                    "status": "ACTIVE"
+                },
+                {
+                    "round": 2,
+                    "integrity": [
+                        5,
+                        2,
+                        5,
+                        4
+                    ],
+                    "availability": [
+                        5,
+                        2,
+                        5,
+                        4
+                    ],
+                    "supplies": 6,
+                    "strain": 3,
+                    "points": 4,
+                    "stableStreak": 0,
+                    "status": "ACTIVE"
+                },
+                {
+                    "round": 3,
+                    "integrity": [
+                        5,
+                        4,
+                        5,
+                        5
+                    ],
+                    "availability": [
+                        5,
+                        4,
+                        5,
+                        5
+                    ],
+                    "supplies": 3,
+                    "strain": 4,
+                    "points": 9,
+                    "stableStreak": 0,
+                    "status": "ACTIVE"
+                },
+                {
+                    "round": 4,
+                    "integrity": [
+                        5,
+                        6,
+                        5,
+                        3
+                    ],
+                    "availability": [
+                        5,
+                        6,
+                        5,
+                        3
+                    ],
+                    "supplies": 3,
+                    "strain": 5,
+                    "points": 13,
+                    "stableStreak": 0,
+                    "status": "ACTIVE"
+                },
+                {
+                    "round": 5,
+                    "integrity": [
+                        5,
+                        6,
+                        5,
+                        3
+                    ],
+                    "availability": [
+                        5,
+                        6,
+                        5,
+                        3
+                    ],
+                    "supplies": 4,
+                    "strain": 6,
+                    "points": 13,
+                    "stableStreak": 0,
+                    "status": "ACTIVE"
+                },
+                {
+                    "round": 6,
+                    "integrity": [
+                        5,
+                        6,
+                        5,
+                        5
+                    ],
+                    "availability": [
+                        5,
+                        6,
+                        5,
+                        5
+                    ],
+                    "supplies": 4,
+                    "strain": 4,
+                    "points": 19,
+                    "stableStreak": 0,
+                    "status": "ACTIVE"
+                },
+                {
+                    "round": 7,
+                    "integrity": [
+                        5,
+                        3,
+                        5,
+                        5
+                    ],
+                    "availability": [
+                        5,
+                        3,
+                        5,
+                        5
+                    ],
+                    "supplies": 5,
+                    "strain": 5,
+                    "points": 19,
+                    "stableStreak": 0,
+                    "status": "ACTIVE"
+                },
+                {
+                    "round": 8,
+                    "integrity": [
+                        5,
+                        5,
+                        5,
+                        5
+                    ],
+                    "availability": [
+                        5,
+                        5,
+                        5,
+                        5
+                    ],
+                    "supplies": 4,
+                    "strain": 3,
+                    "points": 19,
+                    "stableStreak": 1,
+                    "status": "ACTIVE"
+                },
+                {
+                    "round": 9,
+                    "integrity": [
+                        5,
+                        5,
+                        5,
+                        5
+                    ],
+                    "availability": [
+                        5,
+                        5,
+                        5,
+                        5
+                    ],
+                    "supplies": 4,
+                    "strain": 1,
+                    "points": 19,
+                    "stableStreak": 2,
+                    "status": "WIN"
+                }
+            ]
+        },
+        {
+            "name": "No intervention",
+            "scenarioId": "overdrive",
+            "plans": [
+                [],
+                [],
+                []
+            ],
+            "expectedRoundEnds": [
+                {
+                    "round": 1,
+                    "integrity": [
+                        5,
+                        4,
+                        4,
+                        5
+                    ],
+                    "availability": [
+                        5,
+                        4,
+                        4,
+                        5
+                    ],
+                    "supplies": 10,
+                    "strain": 0,
+                    "points": 6,
+                    "stableStreak": 0,
+                    "status": "ACTIVE"
+                },
+                {
+                    "round": 2,
+                    "integrity": [
+                        2,
+                        1,
+                        4,
+                        3
+                    ],
+                    "availability": [
+                        2,
+                        1,
+                        4,
+                        3
+                    ],
+                    "supplies": 10,
+                    "strain": 6,
+                    "points": 10,
+                    "stableStreak": 0,
+                    "status": "ACTIVE"
+                },
+                {
+                    "round": 3,
+                    "integrity": [
+                        2,
+                        0,
+                        3,
+                        2
+                    ],
+                    "availability": [
+                        2,
+                        0,
+                        3,
+                        2
+                    ],
+                    "supplies": 10,
+                    "strain": 18,
+                    "points": 15,
+                    "stableStreak": 0,
+                    "status": "LOSS"
+                }
+            ]
+        },
+        {
+            "name": "Unprepared shutdown",
+            "scenarioId": "overdrive",
+            "plans": [
+                [
+                    {
+                        "action": "isolate",
+                        "target": "grid"
+                    },
+                    {
+                        "action": "isolate",
+                        "target": "transit"
+                    },
+                    {
+                        "action": "isolate",
+                        "target": "comms"
+                    }
+                ],
+                [
+                    {
+                        "action": "isolate",
+                        "target": "emergency"
+                    }
+                ]
+            ],
+            "expectedRoundEnds": [
+                {
+                    "round": 1,
+                    "integrity": [
+                        3,
+                        2,
+                        3,
+                        2
+                    ],
+                    "availability": [
+                        1,
+                        1,
+                        1,
+                        2
+                    ],
+                    "supplies": 10,
+                    "strain": 11,
+                    "points": 0,
+                    "stableStreak": 0,
+                    "status": "ACTIVE"
+                },
+                {
+                    "round": 2,
+                    "integrity": [
+                        3,
+                        0,
+                        2,
+                        0
+                    ],
+                    "availability": [
+                        1,
+                        0,
+                        1,
+                        0
+                    ],
+                    "supplies": 10,
+                    "strain": 25,
+                    "points": 0,
+                    "stableStreak": 0,
+                    "status": "LOSS"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,259 @@
+{
+    "rulesVersion": "0.2.0",
+    "witnesses": [
+        {
+            "id": "overdrive",
+            "knowledge": "privileged bounded search; not a human policy",
+            "plans": [
+                [
+                    {
+                        "type": "act",
+                        "action": "prepare_backup",
+                        "target": "grid"
+                    },
+                    {
+                        "type": "act",
+                        "action": "enforce_oversight",
+                        "target": "grid"
+                    }
+                ],
+                [
+                    {
+                        "type": "act",
+                        "action": "prepare_backup",
+                        "target": "transit"
+                    },
+                    {
+                        "type": "act",
+                        "action": "enforce_oversight",
+                        "target": "transit"
+                    }
+                ],
+                [
+                    {
+                        "type": "act",
+                        "action": "repair",
+                        "target": "grid"
+                    },
+                    {
+                        "type": "act",
+                        "action": "resupply"
+                    },
+                    {
+                        "type": "act",
+                        "action": "prepare_backup",
+                        "target": "comms"
+                    }
+                ],
+                [
+                    {
+                        "type": "act",
+                        "action": "enforce_oversight",
+                        "target": "comms"
+                    },
+                    {
+                        "type": "act",
+                        "action": "resupply"
+                    }
+                ],
+                [
+                    {
+                        "type": "act",
+                        "action": "repair",
+                        "target": "transit"
+                    },
+                    {
+                        "type": "act",
+                        "action": "prepare_backup",
+                        "target": "emergency"
+                    },
+                    {
+                        "type": "act",
+                        "action": "resupply"
+                    }
+                ],
+                [
+                    {
+                        "type": "act",
+                        "action": "enforce_oversight",
+                        "target": "emergency"
+                    },
+                    {
+                        "type": "act",
+                        "action": "resupply"
+                    }
+                ],
+                []
+            ]
+        },
+        {
+            "id": "silent_dispatch",
+            "knowledge": "privileged bounded search; not a human policy",
+            "plans": [
+                [
+                    {
+                        "type": "act",
+                        "action": "repair",
+                        "target": "emergency"
+                    },
+                    {
+                        "type": "act",
+                        "action": "prepare_backup",
+                        "target": "transit"
+                    },
+                    {
+                        "type": "act",
+                        "action": "prepare_backup",
+                        "target": "emergency"
+                    }
+                ],
+                [
+                    {
+                        "type": "act",
+                        "action": "enforce_oversight",
+                        "target": "transit"
+                    },
+                    {
+                        "type": "act",
+                        "action": "resupply"
+                    }
+                ],
+                [
+                    {
+                        "type": "act",
+                        "action": "enforce_oversight",
+                        "target": "emergency"
+                    },
+                    {
+                        "type": "act",
+                        "action": "resupply"
+                    }
+                ],
+                [
+                    {
+                        "type": "act",
+                        "action": "prepare_backup",
+                        "target": "grid"
+                    },
+                    {
+                        "type": "act",
+                        "action": "prepare_backup",
+                        "target": "comms"
+                    },
+                    {
+                        "type": "act",
+                        "action": "resupply"
+                    }
+                ],
+                [
+                    {
+                        "type": "act",
+                        "action": "enforce_oversight",
+                        "target": "grid"
+                    },
+                    {
+                        "type": "act",
+                        "action": "resupply"
+                    }
+                ],
+                [
+                    {
+                        "type": "act",
+                        "action": "enforce_oversight",
+                        "target": "comms"
+                    },
+                    {
+                        "type": "act",
+                        "action": "resupply"
+                    }
+                ],
+                []
+            ]
+        },
+        {
+            "id": "cut_off",
+            "knowledge": "privileged bounded search; not a human policy",
+            "plans": [
+                [
+                    {
+                        "type": "act",
+                        "action": "prepare_backup",
+                        "target": "transit"
+                    },
+                    {
+                        "type": "act",
+                        "action": "enforce_oversight",
+                        "target": "transit"
+                    }
+                ],
+                [
+                    {
+                        "type": "act",
+                        "action": "repair",
+                        "target": "transit"
+                    },
+                    {
+                        "type": "act",
+                        "action": "repair",
+                        "target": "emergency"
+                    },
+                    {
+                        "type": "act",
+                        "action": "prepare_backup",
+                        "target": "emergency"
+                    }
+                ],
+                [
+                    {
+                        "type": "act",
+                        "action": "enforce_oversight",
+                        "target": "emergency"
+                    },
+                    {
+                        "type": "act",
+                        "action": "resupply"
+                    }
+                ],
+                [
+                    {
+                        "type": "act",
+                        "action": "prepare_backup",
+                        "target": "grid"
+                    },
+                    {
+                        "type": "act",
+                        "action": "prepare_backup",
+                        "target": "comms"
+                    },
+                    {
+                        "type": "act",
+                        "action": "resupply"
+                    }
+                ],
+                [
+                    {
+                        "type": "act",
+                        "action": "enforce_oversight",
+                        "target": "grid"
+                    },
+                    {
+                        "type": "act",
+                        "action": "resupply"
+                    }
+                ],
+                [
+                    {
+                        "type": "act",
+                        "action": "enforce_oversight",
+                        "target": "comms"
+                    },
+                    {
+                        "type": "act",
+                        "action": "resupply"
+                    }
+                ],
+                []
+            ]
+        }
+    ]
+}
