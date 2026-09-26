@@ -2,7 +2,7 @@
 
 Source for [purysho.github.io](https://purysho.github.io/) — the public portfolio and project index for Purysho.
 
-The site presents **Switchyard** as the flagship and **QuantOS** as a featured product, alongside four project collections.
+The site presents **Switchyard** as the flagship and **QuantOS** as a featured product, highlights recent public builds (**Cascade**, **Latch**, and **Salesforce Writing Coach**), and organizes the wider portfolio into four project collections.
 
 - **Understand** — inspection, search, storage, and evidence systems.
 - **Operate** — tools for requests, workflows, processes, and runtime control.
@@ -17,6 +17,7 @@ The site is intentionally lightweight: static HTML/CSS/JS, no build service requ
 /
 ├── index.html
 ├── assets/
+├── Cascade/              # hosted playable Cascade build
 ├── understand/
 ├── operate/
 ├── maintain/
