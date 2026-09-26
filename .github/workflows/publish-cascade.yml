@@ -1,0 +1,75 @@
+name: Publish Cascade
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/publish-cascade.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-cascade
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout portfolio site
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout Cascade
+        uses: actions/checkout@v4
+        with:
+          repository: purysho/Cascade
+          ref: main
+          path: _cascade-src
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: _cascade-src/package-lock.json
+
+      - name: Build Cascade browser game
+        working-directory: _cascade-src
+        run: |
+          npm ci --ignore-scripts
+          npm run web:build
+          npm run launch:capture
+
+      - name: Install FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Render Cascade launch trailer
+        working-directory: _cascade-src
+        run: npm run launch:video
+
+      - name: Assemble /Cascade
+        run: |
+          rm -rf Cascade
+          mkdir -p Cascade/media
+          cp -a _cascade-src/dist-web/. Cascade/
+          cp _cascade-src/verification/public-launch/*.png Cascade/media/
+          cp _cascade-src/brag-output/brag.mp4 Cascade/media/
+          cp _cascade-src/brag-output/brag.jpg Cascade/media/
+          cp _cascade-src/brag-output/share-copy.txt Cascade/media/
+          rm -rf _cascade-src
+
+      - name: Commit generated Cascade site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A Cascade
+          if git diff --cached --quiet; then
+            echo "Cascade site is already current."
+            exit 0
+          fi
+          git commit -m "Publish Cascade"
+          git push
