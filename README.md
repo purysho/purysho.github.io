@@ -2,7 +2,7 @@
 
 Source for [purysho.github.io](https://purysho.github.io/) — the public portfolio and project index for Purysho.
 
-The site presents **Switchyard** as the flagship and **QuantOS** as a featured product, highlights recent public builds (**Cascade**, **Latch**, and **Salesforce Writing Coach**), and organizes the wider portfolio into four project collections.
+The site leads with **education**: **Margin** (AI-drafted, teacher-approved feedback on student writing, live at [margin.purysho.workers.dev](https://margin.purysho.workers.dev)) and **EduBoard** (a local-first teacher operating system). It then presents **Switchyard** as the flagship developer tool and **QuantOS** as a featured product, highlights recent public builds (**Cascade**, **Latch**, and **Salesforce Writing Coach**), and organizes the wider portfolio into four project collections.
 
 - **Understand** — inspection, search, storage, and evidence systems.
 - **Operate** — tools for requests, workflows, processes, and runtime control.
